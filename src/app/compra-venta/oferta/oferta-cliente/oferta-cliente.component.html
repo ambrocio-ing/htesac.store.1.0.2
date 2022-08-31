@@ -1,0 +1,334 @@
+<app-panel></app-panel>
+<div class="container-fluid" style="margin-top: 4rem;">
+    <div class="card mb-2">
+        <div class="card-header">
+            <h5>LISTA DE OFERTAS DE LOS CLIENTES</h5>
+        </div>
+        <div class="card-body p-1">
+            <div class="row">
+                <div class="col">
+                    <div style="width: 100%; overflow: auto;">
+                        <table class="table table-striped" style="width: 100%; min-width: 600px;">
+                            <thead>
+                                <tr>
+                                    <th colspan="2">Buscar entre fechas</th>
+                                    <th>
+                                        <input type="date" name="finicio" [(ngModel)]="finicio" class="form-control">
+                                    </th>
+                                    <th>
+                                        <input type="date" name="ffin" [(ngModel)]="ffin" class="form-control">
+                                    </th>
+                                    <th>
+                                        <button (click)="buscar()" class="btn btn-outline-success">Buscar</button>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="4"></th>
+                                    <th>
+                                        <button (click)="limpiar()" type="button"
+                                            class="btn btn-outline-danger">Limpiar</button>
+                                    </th>
+                                </tr>
+                                <tr class="text-center bg-secondary">
+                                    <th scope="col">RUC</th>
+                                    <th scope="col">Razón</th>
+                                    <th scope="col">Dirección</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col" style="width: 100px;">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let ccom of ccsearchs">
+                                <tr>
+                                    <td>{{ccom.clienteProveedor.ruc}}</td>
+                                    <td>{{ccom.clienteProveedor.razonSocial}}</td>
+                                    <td>{{ccom.clienteProveedor.direccion}}</td>
+                                    <td>{{ccom.clienteProveedor.email}}</td>
+                                    <td class="text-center">
+                                        <div *ngIf="loginService.isPresentRolname('ROLE_ADMIN')" class="text-center">
+                                            <button *ngIf="ccom.estado == 'Pendiente'" (click)="marcarRechazado(ccom)"
+                                                class="btn btn-outline-info">Rechazar</button>
+
+                                            <button *ngIf="ccom.estado == 'Aceptado' || ccom.estado == 'Rechazado'"
+                                                (click)="marcarPendiente(ccom)"
+                                                class="btn btn-outline-info">Pediente</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="text-muted">Teléfono:</span>{{ccom.clienteProveedor.telefono}}</td>
+                                    <td><span class="text-muted">Estado:</span>{{ccom.estado}}</td>
+                                    <td>
+                                        <span class="text-muted">Fecha:</span> {{ccom.fecha | date:'dd/MM/yyyy'}}
+                                        <br>
+                                        <span class="text-muted">IGV:</span> {{ccom.igv}}
+                                    </td>
+                                    <td>
+                                        <span class="text-muted">Sub Total:</span> {{ccom.subTotal}}
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="text-muted">Total:</span> {{ccom.total}}
+                                    </td>
+                                </tr>
+                                <tr bgcolor="skyblue" class="text-center">
+                                    <th scope="col">Imagen</th>
+                                    <th scope="col">Detalle</th>
+                                    <th scope="col">Calidad</th>
+                                    <th colspan="2" scope="col">Descripción</th>
+                                </tr>
+                                <tr *ngFor="let oferta of ccom.clienteOfertas">
+                                    <td class="bg-secondary">
+                                        <img style="width: 100; height: 80px; object-fit: cover;" *ngIf="oferta?.imagen"
+                                            src="{{url_backend}}/{{oferta.imagen}}" alt="{{oferta.imagen}}">
+                                    </td>
+                                    <td>
+                                        <span class="text-muted">Nombre:</span>
+                                        <br>
+                                        {{oferta.nombre}}
+                                        <br>
+                                        <span class="text-muted">S/. </span> {{oferta.precio}}
+                                        <span class="text-muted">Cant: </span>{{oferta.cantidad}} {{oferta.unidad}}
+                                    </td>
+                                    <td>{{oferta.calidad}}</td>
+                                    <td colspan="2">{{oferta.descripcion}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="alert alert-danger" role="alert" *ngIf="errMessageSearch">
+                            <span>{{errMessageSearch}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col">
+                    <div style="width: 100%; overflow: auto;">
+                        <h5>Lista de ofertas pendientes</h5>
+                        <table class="table table-striped table-hover" style="width: 100%; min-width: 600px;">
+                            <thead>
+                                <tr class="text-center bg-secondary">
+                                    <th scope="col">RUC</th>
+                                    <th scope="col">Razón</th>
+                                    <th scope="col">Dirección</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col" style="width: 100px;"
+                                        *ngIf="loginService.isPresentRolname('ROLE_ADMIN')">
+                                        Acción
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let ccom of ccpendientes">
+                                <tr>
+                                    <td>{{ccom.clienteProveedor.ruc}}</td>
+                                    <td>{{ccom.clienteProveedor.razonSocial}}</td>
+                                    <td>{{ccom.clienteProveedor.direccion}}</td>
+                                    <td>{{ccom.clienteProveedor.email}}</td>
+                                    <td class="text-center" *ngIf="loginService.isPresentRolname('ROLE_ADMIN')">
+                                        <button (click)="marcarRechazado(ccom)"
+                                            class="btn btn-outline-info">Rechazar</button>                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="text-muted">Teléfono:</span>{{ccom.clienteProveedor.telefono}}</td>
+                                    <td><span class="text-muted">Estado:</span>{{ccom.estado}}</td>
+                                    <td>
+                                        <span class="text-muted">Fecha:</span> {{ccom.fecha | date:'dd/MM/yyyy'}}
+                                        <br>
+                                        <span class="text-muted">IGV:</span> {{ccom.igv}}
+                                    </td>
+                                    <td>
+                                        <span class="text-muted">Sub Total:</span> {{ccom.subTotal}}
+                                        <span class="text-muted">Total:</span> {{ccom.total}}
+                                    </td>
+                                    <td class="text-center">
+
+                                    </td>
+                                </tr>
+                                <tr bgcolor="skyblue" class="text-center">
+                                    <th scope="col">Imagen</th>
+                                    <th scope="col">Detalle</th>
+                                    <th scope="col">Calidad</th>
+                                    <th scope="col">Descripción</th>
+                                    <th scope="col" *ngIf="loginService.isPresentRolname('ROLE_ADMIN')">Acción</th>
+                                </tr>
+                                <tr *ngFor="let oferta of ccom.clienteOfertas">
+                                    <td class="bg-secondary">
+                                        <img style="width: 100; height: 80px; object-fit: cover;" *ngIf="oferta?.imagen"
+                                            src="{{url_backend}}/{{oferta.imagen}}" alt="{{oferta.imagen}}">
+                                    </td>
+                                    <td>
+                                        <span class="text-muted">Nombre:</span>
+                                        <br>
+                                        {{oferta.nombre}}
+                                        <br>
+                                        <span class="text-muted">S/. </span> {{oferta.precio}}
+                                        <span class="text-muted">Cant: </span>{{oferta.cantidad}} {{oferta.unidad}}
+                                    </td>
+                                    <td>{{oferta.calidad}}</td>
+                                    <td>{{oferta.descripcion}}</td>
+                                    <td>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="alert alert-danger" role="alert" *ngIf="errMessagePendiente">
+                            <span>{{errMessagePendiente}}</span>
+                        </div>
+                        <div class="wrapper" *ngIf="ccpendientes.length > 0">
+                            <app-pendiente-paginador [paginador]="paginatorPendiente" [tipo]="tipo">
+
+                            </app-pendiente-paginador>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col">
+                    <h5>Lista de ofertas aceptados</h5>
+                    <div style="width: 100%; overflow: auto;">
+                        <table class="table table-striped" style="width: 100%; min-width: 600px;">
+                            <thead>
+                                <tr class="text-center bg-secondary">
+                                    <th scope="col">RUC</th>
+                                    <th scope="col">Razón</th>
+                                    <th scope="col">Dirección</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col" style="width: 100px;">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let ccom of ccaceptados">
+                                <tr>
+                                    <td>{{ccom.clienteProveedor.ruc}}</td>
+                                    <td>{{ccom.clienteProveedor.razonSocial}}</td>
+                                    <td>{{ccom.clienteProveedor.direccion}}</td>
+                                    <td>{{ccom.clienteProveedor.email}}</td>
+                                    <td class="text-center">
+                                        <button (click)="marcarPendiente(ccom)" class="btn btn-outline-info"
+                                            *ngIf="loginService.isPresentRolname('ROLE_ADMIN')">Pendiente</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="text-muted">Teléfono:</span>{{ccom.clienteProveedor.telefono}}</td>
+                                    <td><span class="text-muted">Estado:</span>{{ccom.estado}}</td>
+                                    <td><span class="text-muted">Fecha:</span> {{ccom.fecha | date:'dd/MM/yyyy'}}</td>
+                                    <td>
+                                        <span class="text-muted">IGV:</span> {{ccom.igv}}
+                                        <br>
+                                        <span class="text-muted">Sub Total:</span> {{ccom.subTotal}}
+                                    </td>
+                                    <td>
+                                        <span class="text-muted">Total:</span> {{ccom.total}}
+                                    </td>
+                                </tr>
+                                <tr bgcolor="skyblue" class="text-center">
+                                    <th scope="col">Imagen</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Descripción</th>
+                                    <th scope="col">Calidad</th>
+                                    <th scope="col">Cantidad</th>
+                                </tr>
+                                <tr *ngFor="let oferta of ccom.clienteOfertas">
+                                    <td class="bg-secondary">
+                                        <img style="width: 100; height: 80px; object-fit: cover;" *ngIf="oferta?.imagen"
+                                            src="{{url_backend}}/{{oferta.imagen}}" alt="{{oferta.imagen}}">
+                                    </td>
+                                    <td>{{oferta.nombre}}</td>
+                                    <td>{{oferta.descripcion}}</td>
+                                    <td>{{oferta.calidad}}</td>
+                                    <td>
+                                        <span class="text-muted">S/. </span>{{oferta.precio}}
+                                        <br>
+                                        <span class="text-muted">Cant: </span>{{oferta.cantidad}} {{oferta.unidad}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="alert alert-danger" role="alert" *ngIf="errMessageAceptado">
+                            <span>{{errMessageAceptado}}</span>
+                        </div>
+                        <div class="wrapper" *ngIf="ccaceptados.length > 0">
+                            <app-aceptado-paginador [paginador]="paginatorAceptado" [tipo]="tipo">
+
+                            </app-aceptado-paginador>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col">
+                    <div style="width: 100%; overflow: auto;">
+                        <h5>Lista de ofertas rechazados</h5>
+                        <table class="table table-striped" style="width: 100%; min-width: 600px;">
+                            <thead>
+                                <tr class="text-center bg-secondary">
+                                    <th scope="col">RUC</th>
+                                    <th scope="col">Razón</th>
+                                    <th scope="col">Dirección</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col" style="width: 100px;">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let ccom of ccrechazados">
+                                <tr>
+                                    <td>{{ccom.clienteProveedor.ruc}}</td>
+                                    <td>{{ccom.clienteProveedor.razonSocial}}</td>
+                                    <td>{{ccom.clienteProveedor.direccion}}</td>
+                                    <td>{{ccom.clienteProveedor.email}}</td>
+                                    <td class="text-center">
+                                        <button (click)="marcarPendiente(ccom)" class="btn btn-outline-info"
+                                            *ngIf="loginService.isPresentRolname('ROLE_ADMIN')">Pendiente</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="text-muted">Teléfono:</span>{{ccom.clienteProveedor.telefono}}</td>
+                                    <td><span class="text-muted">Estado:</span>{{ccom.estado}}</td>
+                                    <td><span class="text-muted">Fecha:</span> {{ccom.fecha | date:'dd/MM/yyyy'}}</td>
+                                    <td>
+                                        <span class="text-muted">IGV:</span> {{ccom.igv}}
+                                        <br>
+                                        <span class="text-muted">Sub Total:</span> {{ccom.subTotal}}
+                                    </td>
+                                    <td>
+                                        <span class="text-muted">Total:</span> {{ccom.total}}
+                                    </td>
+                                </tr>
+                                <tr bgcolor="skyblue" class="text-center">
+                                    <th scope="col">Imagen</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Descripción</th>
+                                    <th scope="col">Calidad</th>
+                                    <th scope="col">Cantidad</th>
+                                </tr>
+                                <tr *ngFor="let oferta of ccom.clienteOfertas">
+                                    <td class="bg-secondary">
+                                        <img style="width: 100; height: 80px; object-fit: cover;" *ngIf="oferta?.imagen"
+                                            src="{{url_backend}}/{{oferta.imagen}}" alt="{{oferta.imagen}}">
+                                    </td>
+                                    <td>{{oferta.nombre}}</td>
+                                    <td>{{oferta.descripcion}}</td>
+                                    <td>{{oferta.calidad}}</td>
+                                    <td>
+                                        <span class="text-muted">S/. </span>{{oferta.precio}}
+                                        <br>
+                                        <span class="text-muted">Cant: </span>{{oferta.cantidad}} {{oferta.unidad}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="alert alert-danger" role="alert" *ngIf="errMessageRechazado">
+                            <span>{{errMessageRechazado}}</span>
+                        </div>
+                        <div class="wrapper" *ngIf="ccrechazados.length > 0">
+                            <app-rechazado-paginador [paginador]="paginatorRechazado" [tipo]="tipo">
+
+                            </app-rechazado-paginador>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

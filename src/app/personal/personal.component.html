@@ -1,0 +1,347 @@
+<app-panel></app-panel>
+<div class="modal-style" *ngIf="preloader">
+    <div>
+        <div class="wrapper2">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>                
+</div>
+<div class="container" style="margin-top: 4rem;">
+    <div class="card">
+        <div class="card-header">
+            <h5>Administración de personal</h5>
+        </div>
+        <div class="card-body p-1">
+            <div class="row">
+                <div class="col">
+                    <app-personal-foto *ngIf="personalSeleccionado" [personal]="personalSeleccionado"
+                        [estadoModal]="isVisibleModal" (cerrarModal)="isVisibleModal = $event">
+                    </app-personal-foto>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <form (ngSubmit)="savePersonal()" #asFormPersonal="ngForm">
+                        <fieldset style="border: rgb(228, 223, 223) solid 1px; padding: 1rem; border-radius: 1rem;">
+                            <legend>Datos</legend>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="estado">Estado</label>
+                                        <select name="estado" [(ngModel)]="personal.estado" required="true"
+                                            #asEstado="ngModel" class="form-control">
+                                            <option value="">--Selecionar--</option>
+                                            <option value="Activo">Activo</option>
+                                            <option value="Suspendido">Suspendido</option>
+                                        </select>
+                                        <div *ngIf="asEstado.invalid && asEstado.touched">
+                                            <div *ngIf="asEstado.errors?.['required']">
+                                                <span>Campo requerido</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="documento">Documento</label>
+                                        <input type="text" name="dni" [(ngModel)]="personal.persona.dni" required
+                                            pattern="^[0-9]\d{7,7}$" #asDni="ngModel" class="form-control">
+                                        <div *ngIf="asDni.invalid && (asDni.dirty || asDni.touched)">
+                                            <div *ngIf="asDni.errors?.['required']">
+                                                <span>
+                                                    Campo requerido
+                                                </span>
+                                            </div>
+                                            <div *ngIf="asDni.errors?.['pattern']">
+                                                <span>
+                                                    Ingrese número de 8 dígitos
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="nombre">Nombres:</label>
+                                        <input type="text" name="nombre" [(ngModel)]="personal.persona.nombre"
+                                            #asNombre="ngModel" required class="form-control">
+                                        <div *ngIf="asNombre.invalid && asNombre.touched">
+                                            <div *ngIf="asNombre.errors?.['required']">
+                                                <span>
+                                                    Campo requerido
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="apellidos">Apellidos:</label>
+                                        <input type="text" name="apellidos" [(ngModel)]="personal.persona.apellidos"
+                                            #asApellidos="ngModel" required class="form-control">
+                                        <div *ngIf="asApellidos.invalid && asApellidos.touched">
+                                            <div *ngIf="asApellidos.errors?.['required']">
+                                                <span>
+                                                    Campo requerido
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="genero">Género:</label>
+                                        <select name="genero" [(ngModel)]="personal.persona.genero" #asGenero="ngModel"
+                                            required class="form-control">
+                                            <option value="">--Selecionar--</option>
+                                            <option value="F">Femenino</option>
+                                            <option value="M">Masculino</option>
+                                            <option value="O">No definido</option>
+                                        </select>
+                                        <div *ngIf="asGenero.invalid && asGenero.touched">
+                                            <div *ngIf="asGenero.errors?.['required']">
+                                                <span>
+                                                    Campo requerido
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="fechaNacimiento">Fecha Nacimiento:</label>
+                                        <input type="date" name="fechaNacimiento"
+                                            [(ngModel)]="personal.persona.fechaNacimiento" #asFechaNacimiento="ngModel"
+                                            required class="form-control">
+                                        <div *ngIf="asFechaNacimiento.invalid && asFechaNacimiento.touched">
+                                            <div *ngIf="asFechaNacimiento.errors?.['required']">
+                                                <span>
+                                                    Campo requerido
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="celular">Celular:</label>
+                                        <input type="tel" name="telefono" [(ngModel)]="personal.persona.telefono"
+                                            #asTelefono="ngModel" required class="form-control"
+                                            pattern="^[0-9]\d{8,8}$">
+                                        <div *ngIf="asTelefono.invalid && (asTelefono.touched || asTelefono.dirty)">
+                                            <div *ngIf="asTelefono.errors?.['required']">
+                                                <span>
+                                                    Campo requerido
+                                                </span>
+                                            </div>
+                                            <div *ngIf="asTelefono.errors?.['pattern']">
+                                                <span>
+                                                    Ingrese número de 9 dígitos
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="direccion">Dirección(Opcional):</label>
+                                        <input type="text" name="direccion" [(ngModel)]="personal.persona.direccion"
+                                            class="form-control">
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </fieldset>
+                        <fieldset
+                            style="border: rgb(228, 223, 223) solid 1px; padding: 1rem; border-radius: 1rem; margin-top: 3px;">
+                            <legend>Credenciales</legend>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="username">Nombre de Usuario:</label>
+                                        <input type="text" name="username" [(ngModel)]="personal.usuario.username"
+                                            required maxlength="15" minlength="4" #asUsername="ngModel"
+                                            class="form-control">
+                                    </div>
+                                    <div *ngIf="asUsername.invalid && (asUsername.touched || asUsername.dirty)">
+                                        <div *ngIf="asUsername.errors?.['required']">
+                                            <span>
+                                                Campo requerido
+                                            </span>
+                                        </div>
+                                        <div *ngIf="asUsername.errors?.['minlength']">
+                                            <span>
+                                                Mínimo 4 dígitos
+                                            </span>
+                                        </div>
+                                        <div *ngIf="asUsername.errors?.['maxlength']">
+                                            <span>
+                                                Máximo 15 dígitos
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Rol</label>
+                                        <input type="checkbox" (change)="rolAdmin($event)" #asRolAdmin>
+                                        <p>Admin</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="email">Email:</label>
+                                        <input type="text" name="email" [(ngModel)]="personal.usuario.email" required
+                                            email="true" #asEmail="ngModel" class="form-control">
+                                    </div>
+                                    <div *ngIf="asEmail.invalid && (asEmail.touched || asEmail.dirty)">
+                                        <div *ngIf="asEmail.errors?.['required']">
+                                            <span>
+                                                Campo requerido
+                                            </span>
+                                        </div>
+                                        <div *ngIf="asEmail.errors?.['email']">
+                                            <span>
+                                                No es un email
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="password">Password:</label>
+                                        <input type="password" name="password" [(ngModel)]="personal.usuario.password"
+                                            required minlength="8" maxlength="15" #asPassword="ngModel"
+                                            class="form-control">
+                                    </div>
+                                    <div *ngIf="asPassword.invalid && (asPassword.touched || asPassword.dirty)">
+                                        <div *ngIf="asPassword.errors?.['required']">
+                                            <span>
+                                                Campo requerido
+                                            </span>
+                                        </div>
+                                        <div *ngIf="asPassword.errors?.['minlength']">
+                                            <span>
+                                                Mínimo 8 dígitos
+                                            </span>
+                                        </div>
+                                        <div *ngIf="asPassword.errors?.['maxlength']">
+                                            <span>
+                                                Máximo 15 dígitos
+                                            </span>
+                                        </div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset
+                            style="border: rgb(228, 223, 223) solid 1px; padding: 1rem; border-radius: 1rem; margin-top: 3px;">
+                            <div class="form-group">
+                                <input *ngIf="isNuevo" [disabled]="asFormPersonal.form.invalid" type="submit"
+                                    style="margin-top: 1rem;" class="form-control btb btn-primary" value="Guardar">
+                                <input *ngIf="!isNuevo" [disabled]="asFormPersonal.form.invalid" type="submit"
+                                    style="margin-top: 1rem;" class="form-control btb btn-primary" value="Editar">
+                            </div>
+                            <div class="form-group mt-2">
+                                <button (click)="cancelar()" type="button"
+                                    class="form-control btb btn-danger">Cancelar</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="row mt-2">
+                <div class="col">
+                    <div style="width: 100%; overflow: auto;">
+                        <table class="table table-striped" style="width: 100%; min-width: 580px;">
+                            <thead>
+                                <tr bgcolor="skyblue" class="text-center">
+                                    <th scope="col">#</th>
+                                    <th scope="col">Estado</th>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Datos</th>
+                                    <th scope="col">Usuario</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let personal of personals">
+                                    <td>
+                                        <div *ngIf="!personal.persona?.fotoPerfil">
+                                            <img style="width: 2.5rem; height: 2.5rem; cursor: pointer;"
+                                                (click)="irModal(personal)" class="img-perfil"
+                                                src="../../assets/img/ardefault.jpg" alt="">
+                                        </div>
+                                        <div *ngIf="personal.persona?.fotoPerfil">
+                                            <img style="width: 2.5rem; height: 2.5rem; cursor: pointer;"
+                                                (click)="irModal(personal)" class="img-perfil"
+                                                src="{{url_backend}}/{{personal.persona.fotoPerfil}}" alt="">
+                                        </div>
+                                    </td>
+                                    <td>{{personal.estado}}</td>
+                                    <td>{{personal.fecha | date: 'dd/MM/yyyy'}}</td>
+
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <td>{{personal.persona.dni}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{personal.persona.nombre}}, {{personal.persona.apellidos}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{personal.persona.genero}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{personal.persona.fechaNacimiento | date: 'dd/MM/yyyy'}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{personal.persona.telefono}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{personal.persona.direccion}}</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <td>{{personal.usuario.username}}</td>
+                                                <td>{{personal.usuario.email}}</td>
+                                            </tr>
+                                            <tr *ngFor="let rol of personal.usuario.roles">
+                                                <td>
+                                                    {{rol}}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table>
+                                            <tr class="text-center">
+                                                <td>
+                                                    <a (click)="obtener(personal)">
+                                                        <img style="width: 30px; height: 30px; cursor: pointer;margin-left: 10px;"
+                                                            src="../../assets/img/editar.jpeg" alt="">
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a (click)="eliminar(personal)">
+                                                        <img style="width: 30px; height: 30px; cursor: pointer; margin-left: 10px;"
+                                                            src="../../assets/img/eliminar.png" alt="">
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <span *ngIf="listaMensaje">
+                            {{listaMensaje}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

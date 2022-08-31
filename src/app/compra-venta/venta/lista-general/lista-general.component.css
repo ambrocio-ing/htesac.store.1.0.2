@@ -1,0 +1,14 @@
+.ver-todo{
+    text-decoration: underline;
+    color: rgb(116, 116, 240);    
+    cursor: pointer;
+}
+
+.ver-todo:hover {
+    color: blue;
+}
+
+.ver-todo:active {
+    text-decoration: none;
+    color: rgb(116, 116, 240); 
+}

@@ -1,0 +1,125 @@
+.wrapper{
+    padding: .5rem;
+    display: flex;
+    justify-content: center;    
+}
+
+.marco{
+    border: rgb(228, 223, 223) solid 1px; 
+    padding: 1rem; 
+    border-radius: .5rem;
+    margin-top: 3px;
+}
+
+.size-tr{
+    height: 300px;
+}
+
+.tamano{    
+    width: 20px;
+    cursor: pointer;
+}
+
+.wrapper2{
+    padding: .5rem;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+span{
+    color: red;
+}
+
+.modal-style{
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    padding: 5px;
+}
+
+.view-grid {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    gap: 5px;
+}
+
+.view-grid-sucursal {
+    display: grid;
+    grid-template-columns: 20% 75%;
+    gap: 5px;
+}
+
+.view-grid-one {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    gap: 1px;
+}
+
+.grid-custom-variedad{
+    display: grid;
+    grid-template-columns: 30% 30% 30%;
+    gap: 5px;
+}
+
+.click-danger{       
+    color: black; 
+    cursor: pointer;    
+}
+
+.click-danger i{    
+    font-size: 20px;
+}
+
+.click-danger i:hover{
+    color: red;
+    font-size: 20px;
+}
+
+.click-info{        
+    color: black;
+    cursor: pointer;
+}
+
+.click-info i {    
+    font-size: 20px;
+}
+
+.click-info i:hover{
+    color: rgb(0, 17, 255);
+    font-size: 20px;
+}
+
+.bg-custom{
+    background-color: rgb(207, 203, 203);
+    border-radius: 3px;
+    padding: 4px;
+}
+
+.display-color{
+    padding: 3px;
+    background-color: lightgray;
+    color: black;
+    border-radius: 5px;
+}
+
+.custom{
+    color: red;
+    cursor: pointer;
+}
+
+@media screen and (max-width:520px) {
+    .click-info i {    
+        font-size: 20px;
+        color: blue;
+    }
+
+    .click-danger i{    
+        font-size: 20px;
+        color: red;
+    }
+}

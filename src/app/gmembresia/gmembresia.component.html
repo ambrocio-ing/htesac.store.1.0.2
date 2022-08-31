@@ -1,0 +1,187 @@
+<app-panel></app-panel>
+<div class="wrapper" style="margin-top: 3.8rem;">
+    <div class="card mt-2">
+        <div class="card-header">
+            <h5>REGISTRO DE MEMBRESIAS</h5>
+        </div>
+        <div class="card-body">
+            <div class="row modal-style" *ngIf="preloader">
+                <div class="col">
+                    <div class="wrapper2">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+
+            <div class="row" *ngIf="loginService.isPresentRolname('ROLE_ADMIN')">
+                <div class="col">
+                    <form #asFormMembresia="ngForm" (ngSubmit)="saveMembresia()">
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="titulo" [(ngModel)]="membresia.titulo" required
+                                        #asTitulo="ngModel" class="form-control" id="floatingInput">
+                                    <label for="floatingInput">Titulo:</label>
+                                    <div *ngIf="asTitulo.invalid && asTitulo.touched">
+                                        <div *ngIf="asTitulo.errors?.['required']">
+                                            <span style="color:red;">Campo requerido</span>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <div class="form-floating mb-2">
+                                    <select type="text" name="tipo" [(ngModel)]="membresia.tipo" class="form-control"
+                                        id="floatingInput">
+                                        <option value="">--Seleccione--</option>
+                                        <option value="Porcentaje">Porcentaje</option>
+                                        <option value="Valor fijo">Valor fijo</option>
+                                    </select>
+                                    <label for="floatingInput">Tipo:</label>
+                                </div>
+    
+                                <div class="form-group mb-2">
+                                    <label for="">Imagen de Membresia</label>
+                                    <input type="file" (change)="capturarImagen($event)" class="form-control">
+                                    <div *ngIf="errMessageImage">
+                                        <span style="color: red;">{{errMessageImage}}</span>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="col-sm">
+                                <div class="form-floating mb-3">
+                                    <input type="number" name="valor" [(ngModel)]="membresia.valor" required
+                                        #asValor="ngModel" class="form-control" id="floatingInput">
+                                    <label for="floatingInput">Descuento:</label>
+                                    <div *ngIf="asValor.invalid && asValor.touched">
+                                        <div *ngIf="asValor.errors?.['required']">
+                                            <span style="color:red;">Campo requerido</span>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <div class="form-floating mb-3">
+                                    <input type="number" name="monto" [(ngModel)]="membresia.monto" required
+                                        #asMonto="ngModel" class="form-control" id="floatingInput">
+                                    <label for="floatingInput">Precio:</label>
+                                    <div *ngIf="asMonto.invalid && asMonto.touched">
+                                        <div *ngIf="asMonto.errors?.['required']">
+                                            <span style="color: red;">Campo requerido</span>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <div class="form-floating mb-3">
+                                    <textarea type="number" rows="3" name="detalle" [(ngModel)]="membresia.detalle"
+                                        class="form-control" id="floatingInput"></textarea>
+                                    <label for="floatingInput">Detalle:</label>
+                                </div>
+    
+                            </div>
+                            <div class="col-sm">
+                                <div class="form-floating mb-3">
+                                    <input type="number" name="duracion" [(ngModel)]="membresia.duracion" required
+                                        #asDuracion="ngModel" class="form-control" id="floatingInput">
+                                    <label for="floatingInput">Tiempo de vigencia:</label>
+                                    <div *ngIf="asDuracion.invalid && asDuracion.touched">
+                                        <div *ngIf="asDuracion.errors?.['required']">
+                                            <span style="color:red;">Campo requerido</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <input *ngIf="isNuevo" [disabled]="asFormMembresia.form.invalid" type="submit"
+                                        class="form-control btn btn-outline-primary" value="GUARDAR">
+                                    <input *ngIf="!isNuevo" [disabled]="asFormMembresia.form.invalid" type="submit"
+                                        class="form-control btn btn-outline-primary" value="EDITAR">
+    
+                                </div>
+                                <div class="form-group mb-3">
+                                    <button (click)="cancelar()" type="button"
+                                        class="form-control btn btn-outline-danger mt-2">CANCELAR</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>                
+            </div>
+
+            <div class="row mt-3">
+                <div class="col">
+                    <table class="table table-striped">
+                        <thead> 
+                            <tr bgcolor="skyblue" class="text-center">
+                                <th scope="col">#</th>
+                                <th scope="col">Título</th>
+                                <th scope="col">Valor</th>
+                                <th scope="col">Detalle</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col" *ngIf="loginService.isPresentRolname('ROLE_ADMIN')">Accion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let mem of membresias">
+                                <td>
+                                    <img *ngIf="mem?.imagen" style="width: 50; height: 50px;"
+                                        src="{{url_backend}}/{{mem.imagen}}" alt="{{mem.imagen}}">
+                                </td>
+                                <td> {{mem.titulo}} </td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td>Precio: {{mem.monto}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Descuento: {{mem.valor}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Duración: {{mem.duracion}}</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td>Tipo:{{mem.tipo}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Detalle:{{mem.detalle}}</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td>{{mem.estado}}</td>
+                                        </tr>
+                                        <tr *ngIf="mem.estado == 'Vigente' && loginService.isPresentRolname('ROLE_ADMIN')">
+                                            <td>
+                                                <a (click)="suspender(mem)"
+                                                    style="cursor: pointer; color:blue;">Suspender</a>
+                                            </td>
+                                        </tr>
+                                    </table>    
+                                </td>
+                                <td class="text-center" *ngIf="loginService.isPresentRolname('ROLE_ADMIN')">
+                                    <a (click)="obtener(mem)" style="cursor: pointer;">
+                                        <img style="width: 30px; height: 30px;"
+                                            src="../../assets/img/editar.jpeg" alt="editar.jpeg">
+                                    </a>
+                                    <a (click)="eliminar(mem)" style="cursor: pointer; margin-left: 10px;">
+                                        <img style="width: 30px; height: 30px;"
+                                            src="../../assets/img/eliminar.png" alt="eliminar.png">
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div *ngIf="errMessageList" class="alert alert-danger" role="alert">
+                        {{errMessageList}}
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
+</div>

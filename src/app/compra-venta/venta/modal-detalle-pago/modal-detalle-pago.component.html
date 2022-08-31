@@ -1,0 +1,43 @@
+<div class="modal-style" *ngIf="visibleModal">
+    <div class="wrapper">
+        <div class="card" style="margin-top: 5rem;">
+            <div class="card-header d-flex justify-content-between">
+                <h5>DETALLE DEL PAGO</h5>
+                <a (click)="closeModalDetallePago()" class="close-custom">
+                    <i class="bi bi-x-circle-fill" style="font-size: 20px;"></i>
+                </a>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    <li class="list-group-item" *ngIf="detallePago?.estadoPago">
+                        <span class="text-muted me-2">Estado:</span> {{detallePago.estadoPago}}
+                    </li>
+                    <li class="list-group-item" *ngIf="detallePago?.formaPago">
+                        <span class="text-muted me-2">Forma de pago:</span> {{detallePago.formaPago}}
+                    </li>
+                    <li class="list-group-item" *ngIf="detallePago?.fechaCreacion">
+                        <span class="text-muted me-2">Fecha de creación:</span> {{detallePago.fechaCreacion | date: 'dd/MM/yyyy hh:mm a'}}
+                    </li>
+                    <li class="list-group-item" *ngIf="detallePago?.fechaExpiracion">
+                        <span class="text-muted me-2">Fecha de expiración:</span> {{detallePago.fechaExpiracion | date: 'dd/MM/yyyy hh:mm a'}}
+                    </li>
+                    <li class="list-group-item" *ngIf="detallePago?.marcaTarjeta">
+                        <span class="text-muted me-2">Marca de la tarjeta:</span> {{detallePago.marcaTarjeta}}
+                    </li>
+                    <li class="list-group-item" *ngIf="detallePago?.tipoTarjeta">
+                        <span class="text-muted me-2">Tipo de tarjeta:</span> {{detallePago.tipoTarjeta}}
+                    </li>
+                    <li class="list-group-item" *ngIf="detallePago?.numeroOrden">
+                        <span class="text-muted me-2">Número de orden:</span> {{detallePago.numeroOrden}}
+                    </li>
+                    <li class="list-group-item" *ngIf="detallePago?.ordenId">
+                        <span class="text-muted me-2">ID Orden:</span> {{detallePago.ordenId}}
+                    </li>
+                    <li class="list-group-item" *ngIf="detallePago?.tokenId">
+                        <span class="text-muted me-2">ID Token:</span> {{detallePago.tokenId}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

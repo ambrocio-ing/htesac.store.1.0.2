@@ -1,0 +1,42 @@
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-sm navbar-dark fixed-top" style="background: rgb(1, 196, 218);">
+        <div class="container-fluid">
+            <div class="d-flex">
+                <a class="navbar-brand" href="javascript:void(0)">
+                    <span>SPMPerú</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div class="position-absolute top-50 start-50 translate-middle">
+        <div class="card text-center" style="width:17rem;">
+            <div class="card-header">
+                Iniciar sesión
+            </div>
+            <div class="card-body">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingInput" 
+                        name="usernameOrEmail" [(ngModel)]="usuarioLogin.usernameOrEmail" 
+                        placeholder="name@example.com">
+                    <label for="floatingInput">Usuario ó Correo</label>
+                </div>
+                <div class="form-floating">
+                    <input type="password" name="password" [(ngModel)]="usuarioLogin.password" class="form-control" id="floatingPassword" placeholder="Password">
+                    <label for="floatingPassword">Contraseña</label>
+                </div>               
+                
+            </div>
+            <div class="card-footer">
+                <button (click)="iniciarSesion()" class="btn btn-info">Ingresar</button>                    
+            </div>
+            <div class="card-footer">
+                <a routerLink="/new-pass" (click)="recuperarPassword()" class="link-info">Olvide mi contraseña</a>
+            </div>
+            <div class="card-footer" *ngIf="errMessageLogin">
+                <div class="alert alert-danger" role="alert">
+                    {{errMessageLogin}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

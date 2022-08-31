@@ -1,0 +1,5 @@
+.link-custom {
+    cursor: pointer;
+    text-decoration: underline;
+    color: blue;
+}

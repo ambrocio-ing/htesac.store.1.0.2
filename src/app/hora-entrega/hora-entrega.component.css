@@ -1,0 +1,15 @@
+.grid-custom{
+    display: grid;
+    grid-template-columns: 45% 45%;
+    gap: 5px;
+}
+
+.click-custom{
+    cursor: pointer;
+    border-radius: 3px;    
+}
+
+.click-custom:hover{
+    border: 2px solid gray;
+    background-color: rgb(199, 196, 196);
+}
