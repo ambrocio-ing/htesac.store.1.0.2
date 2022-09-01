@@ -305,7 +305,7 @@
                                                                         <i class="bi bi-pencil-square" style="font-size: 20px; color:blue"></i>
                                                                     </a>
                                                                     
-                                                                    <a (click)="eliminarDI(di)" style="cursor: pointer;">
+                                                                    <a (click)="eliminarDI(di)" style="cursor: pointer;" *ngIf="ingreso.detalleIngresos.length > 1">
                                                                         <i class="bi bi-trash" style="font-size: 20px; color:red"></i>
                                                                     </a>
                                                                 </td>

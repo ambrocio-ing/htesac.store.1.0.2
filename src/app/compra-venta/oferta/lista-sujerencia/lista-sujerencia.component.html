@@ -14,6 +14,7 @@
                                     <tr class="bg-info text-center">
                                         <th>#</th>
                                         <th>Detalle</th>
+                                        <th>Cantidad</th>
                                         <th>Fecha</th>
                                     </tr>
                                 </thead>
@@ -21,6 +22,7 @@
                                     <tr *ngFor="let suje of sujerencias">
                                         <td>{{suje.idsujerencia}}</td>
                                         <td>{{suje.detalle}}</td>
+                                        <td>{{suje.cantidad}}</td>
                                         <td>{{suje.fecha | date: 'dd/MM/yyyy'}}</td>
                                     </tr>
                                 </tbody>

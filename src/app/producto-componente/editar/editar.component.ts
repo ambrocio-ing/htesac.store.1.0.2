@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Categoria } from 'src/app/modelo/producto/categoria';
 import { Producto } from 'src/app/modelo/producto/producto';
 import { ProductoDatoNutricional } from 'src/app/modelo/producto/producto-dato-nutricional';
+import { ProductoImagen } from 'src/app/modelo/producto/producto-imagen';
 import { ProductoOtros } from 'src/app/modelo/producto/producto-otros';
 import { ProductoVestimenta } from 'src/app/modelo/producto/producto-vestimenta';
 import { Tipo } from 'src/app/modelo/producto/tipo';
@@ -132,6 +133,33 @@ export class EditarComponent implements OnInit {
       console.log("***NUEVO**", this.imagenes);
     }
   }  
+
+  eliminarImagenId(nimg:ProductoImagen): void {
+    Swal.fire({
+      icon:'question',
+      text:'Seguro que desea eliminar imagen???',
+      showCancelButton:true,
+      confirmButtonText:'Sí',
+      cancelButtonText:'No'
+    }).then(res => {
+      if(res.value){
+        this.productoService.deleteImg(nimg.idpimagen).subscribe(resp => {
+          Swal.fire({
+            icon:'success',
+            text:resp.mensaje
+          });
+
+          this.ngOnInit();
+
+        }, err => {
+          Swal.fire({
+            icon:'error',
+            text:'No fue posible eliminar imagen'
+          });
+        });
+      }
+    });
+  } 
 
   //acciones
   updateProducto(): void {

@@ -81,6 +81,9 @@
                                 </div>
                                 <div class="row row-cols-3 mt-2">
                                     <div class="col" *ngFor="let nimg of producto.productoImagenes">
+                                        <a (click)="eliminarImagenId(nimg)" class="float-end" style="cursor: pointer;">
+                                            <i class="bi bi-x-circle-fill" style="color: red;"></i>
+                                        </a>
                                         <img style="width: 100%; height: auto;" src="{{url_backend}}/{{nimg.imagen}}"
                                             alt="no image">
                                     </div>

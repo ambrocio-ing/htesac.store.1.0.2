@@ -100,61 +100,16 @@ export class ProductoService {
         return throwError(e);
       })
     );
-  }
-
-  /* public updateProducto(producto: Producto, imagenes: File[]): Observable<any> {
-    return this.http.post(this.url + "/editar", producto).pipe(
-      switchMap((resp: any) => {
-
-        const formData = new FormData();
-        if (imagenes.length == 1) {
-          formData.append("id", resp.id);
-          formData.append("imagen", imagenes[0]);
-
-          return this.http.post(`${this.url}/img/tres`, formData).pipe(
-            catchError(e => {
-              return throwError(e);
-            })
-          );
-        }
-        else if (imagenes.length == 2) {
-          formData.append("id", resp.id);
-          formData.append("imagen2", imagenes[0]);
-          formData.append("imagen3", imagenes[1]);
-
-          return this.http.post(`${this.url}/img/dos`, formData).pipe(
-            catchError(e => {
-              return throwError(e);
-            })
-          );
-        }
-        else if (imagenes.length == 3) {
-          formData.append("id", resp.id);
-          formData.append("imagen1", imagenes[0]);
-          formData.append("imagen2", imagenes[1]);
-          formData.append("imagen3", imagenes[2]);
-
-          return this.http.post(`${this.url}/imagen/tres`, formData).pipe(
-            catchError(e => {
-              return throwError(e);
-            })
-          );
-        }
-        else {
-          return resp;
-        }
-
-      }),
-      catchError(e => {
-        return throwError(e);
-      })
-    );
-  } */
+  }  
 
   public deleteProducto(id: number): Observable<any> {
     return this.http.delete(this.url + "/eliminar/" + id).pipe(
       map(resp => resp)
     );
+  }
+
+  public deleteImg(idimagen:number): Observable<any> {
+    return this.http.delete(this.url + "/img/eliminar/" + idimagen);
   }
 
 }

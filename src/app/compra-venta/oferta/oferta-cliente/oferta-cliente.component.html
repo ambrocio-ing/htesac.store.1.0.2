@@ -50,7 +50,7 @@
 
                                             <button *ngIf="ccom.estado == 'Aceptado' || ccom.estado == 'Rechazado'"
                                                 (click)="marcarPendiente(ccom)"
-                                                class="btn btn-outline-info">Pediente</button>
+                                                class="btn btn-outline-info">Pediente</button>                                            
                                         </div>
                                     </td>
                                 </tr>
@@ -64,9 +64,14 @@
                                     </td>
                                     <td>
                                         <span class="text-muted">Sub Total:</span> {{ccom.subTotal}}
+                                        <br>
+                                        <span class="text-muted">Total:</span> {{ccom.total}}
                                     </td>
                                     <td class="text-center">
-                                        <span class="text-muted">Total:</span> {{ccom.total}}
+                                        <div *ngIf="loginService.isPresentRolname('ROLE_ADMIN')">
+                                            <button *ngIf="ccom.estado == 'Pendiente'" (click)="marcarAceptado(ccom)"
+                                            class="btn btn-outline-info">Aceptar</button>
+                                        </div>                                        
                                     </td>
                                 </tr>
                                 <tr bgcolor="skyblue" class="text-center">
@@ -111,10 +116,7 @@
                                     <th scope="col">Razón</th>
                                     <th scope="col">Dirección</th>
                                     <th scope="col">Email</th>
-                                    <th scope="col" style="width: 100px;"
-                                        *ngIf="loginService.isPresentRolname('ROLE_ADMIN')">
-                                        Acción
-                                    </th>
+                                    <th scope="col" style="width: 100px;">Acción</th>
                                 </tr>
                             </thead>
                             <tbody *ngFor="let ccom of ccpendientes">
@@ -123,9 +125,11 @@
                                     <td>{{ccom.clienteProveedor.razonSocial}}</td>
                                     <td>{{ccom.clienteProveedor.direccion}}</td>
                                     <td>{{ccom.clienteProveedor.email}}</td>
-                                    <td class="text-center" *ngIf="loginService.isPresentRolname('ROLE_ADMIN')">
+                                    <td class="text-center">
                                         <button (click)="marcarRechazado(ccom)"
-                                            class="btn btn-outline-info">Rechazar</button>                                        
+                                            *ngIf="loginService.isPresentRolname('ROLE_ADMIN')"
+                                            class="btn btn-outline-info">Rechazar
+                                        </button>
                                     </td>
                                 </tr>
                                 <tr>
@@ -141,15 +145,17 @@
                                         <span class="text-muted">Total:</span> {{ccom.total}}
                                     </td>
                                     <td class="text-center">
-
+                                        <button (click)="marcarAceptado(ccom)" *ngIf="loginService.isPresentRolname('ROLE_ADMIN')"
+                                            class="btn btn-outline-info ">
+                                            Aceptar
+                                        </button>
                                     </td>
                                 </tr>
                                 <tr bgcolor="skyblue" class="text-center">
                                     <th scope="col">Imagen</th>
                                     <th scope="col">Detalle</th>
                                     <th scope="col">Calidad</th>
-                                    <th scope="col">Descripción</th>
-                                    <th scope="col" *ngIf="loginService.isPresentRolname('ROLE_ADMIN')">Acción</th>
+                                    <th colspan="2" scope="col">Descripción</th>
                                 </tr>
                                 <tr *ngFor="let oferta of ccom.clienteOfertas">
                                     <td class="bg-secondary">
@@ -165,10 +171,7 @@
                                         <span class="text-muted">Cant: </span>{{oferta.cantidad}} {{oferta.unidad}}
                                     </td>
                                     <td>{{oferta.calidad}}</td>
-                                    <td>{{oferta.descripcion}}</td>
-                                    <td>
-
-                                    </td>
+                                    <td colspan="2">{{oferta.descripcion}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -224,24 +227,25 @@
                                 </tr>
                                 <tr bgcolor="skyblue" class="text-center">
                                     <th scope="col">Imagen</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Descripción</th>
+                                    <th scope="col">Detalle</th>
                                     <th scope="col">Calidad</th>
-                                    <th scope="col">Cantidad</th>
+                                    <th colspan="2" scope="col">Descripción</th>
                                 </tr>
                                 <tr *ngFor="let oferta of ccom.clienteOfertas">
                                     <td class="bg-secondary">
                                         <img style="width: 100; height: 80px; object-fit: cover;" *ngIf="oferta?.imagen"
                                             src="{{url_backend}}/{{oferta.imagen}}" alt="{{oferta.imagen}}">
                                     </td>
-                                    <td>{{oferta.nombre}}</td>
-                                    <td>{{oferta.descripcion}}</td>
-                                    <td>{{oferta.calidad}}</td>
                                     <td>
-                                        <span class="text-muted">S/. </span>{{oferta.precio}}
+                                        <span class="text-muted">Nombre:</span>
                                         <br>
+                                        {{oferta.nombre}}
+                                        <br>
+                                        <span class="text-muted">S/. </span> {{oferta.precio}}
                                         <span class="text-muted">Cant: </span>{{oferta.cantidad}} {{oferta.unidad}}
                                     </td>
+                                    <td>{{oferta.calidad}}</td>
+                                    <td colspan="2">{{oferta.descripcion}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -297,24 +301,25 @@
                                 </tr>
                                 <tr bgcolor="skyblue" class="text-center">
                                     <th scope="col">Imagen</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Descripción</th>
+                                    <th scope="col">Detalle</th>
                                     <th scope="col">Calidad</th>
-                                    <th scope="col">Cantidad</th>
+                                    <th colspan="2" scope="col">Descripción</th>
                                 </tr>
                                 <tr *ngFor="let oferta of ccom.clienteOfertas">
                                     <td class="bg-secondary">
                                         <img style="width: 100; height: 80px; object-fit: cover;" *ngIf="oferta?.imagen"
                                             src="{{url_backend}}/{{oferta.imagen}}" alt="{{oferta.imagen}}">
                                     </td>
-                                    <td>{{oferta.nombre}}</td>
-                                    <td>{{oferta.descripcion}}</td>
-                                    <td>{{oferta.calidad}}</td>
                                     <td>
-                                        <span class="text-muted">S/. </span>{{oferta.precio}}
+                                        <span class="text-muted">Nombre:</span>
                                         <br>
+                                        {{oferta.nombre}}
+                                        <br>
+                                        <span class="text-muted">S/. </span> {{oferta.precio}}
                                         <span class="text-muted">Cant: </span>{{oferta.cantidad}} {{oferta.unidad}}
                                     </td>
+                                    <td>{{oferta.calidad}}</td>
+                                    <td colspan="2">{{oferta.descripcion}}</td>
                                 </tr>
                             </tbody>
                         </table>

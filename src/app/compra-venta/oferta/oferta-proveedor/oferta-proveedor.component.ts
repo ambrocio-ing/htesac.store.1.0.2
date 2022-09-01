@@ -106,6 +106,34 @@ export class OfertaProveedorComponent implements OnInit {
     
   }
 
+  marcarAceptado(pc:ProveedorComprobante): void {
+    Swal.fire({
+      icon:'question',
+      title:'Seguro que desea aceptar?',
+      text:'Está intentando aceptar, por favor confirme la acción',
+      showCancelButton:true,
+      confirmButtonText:'Si',
+      cancelButtonText:'No'
+    }).then(res => {      
+      if(res.value){
+        pc.estado = "Aceptado";
+        this.poService.updatePC(pc).subscribe(resp => {
+          this.ngOnInit();
+          
+          Swal.fire({
+            icon:'success',
+            text:resp.mensaje
+          });
+        }, err => {
+          Swal.fire({
+            icon:'success',
+            text:'No fue posible actualizar estado, inténtelo mas tarde'
+          });
+        });
+      }
+    });
+  }
+
   marcarRechazado(pc:ProveedorComprobante) : void {
     Swal.fire({
       icon:'question',

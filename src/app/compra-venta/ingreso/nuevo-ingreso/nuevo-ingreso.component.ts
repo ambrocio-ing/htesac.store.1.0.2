@@ -368,6 +368,9 @@ export class NuevoIngresoComponent implements OnInit {
     }).then(resp => {
       if (resp.value) {
         this.variedad.colores = this.variedad.colores.filter(co => co.nombreColor != color.nombreColor);
+        let cantidad:number = 0;
+        this.variedad.colores.forEach(co => cantidad += co.cantidadColor);
+        this.variedad.cantidadTalla = cantidad;
       }
     });
   }

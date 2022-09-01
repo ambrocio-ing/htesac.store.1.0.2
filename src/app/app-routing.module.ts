@@ -33,7 +33,7 @@ import { RecuperarCComponent } from './recuperar-c/recuperar-c.component';
 import { RoleGuard } from './servicio/guards/role.guard';
 
 const routes: Routes = [
-  //{ path: '',component:LoginComponent }, 
+  { path: '',component:LoginComponent }, 
   { path: 'inicio', component: InicioComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
 
   { path: 'cli-lista', component: ClientesComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },

@@ -114,6 +114,38 @@ export class OfertaClienteComponent implements OnInit {
     this.errMessageSearch = "";
   }
 
+  marcarAceptado(ccom: ClienteComprobante): void {
+    Swal.fire({
+      icon: 'question',
+      title: 'Seguro que desea aceptar oferta',
+      text: 'Esá intentando aceptar oferta, por favor confirme la acción',
+      showCancelButton: true,
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No'
+    }).then(res => {
+
+      if (res.value) {        
+        ccom.estado = "Aceptado";
+        this.ccservice.ccUpdate(ccom).subscribe(resp => {   
+
+          this.ngOnInit();
+
+          Swal.fire({
+            icon: 'success',
+            text: resp.mensaje
+          });
+
+        }, err => {
+          Swal.fire({
+            icon: 'error',
+            text: 'No fue posible actualizar estado, intentelo mas tarde'
+          });
+        });
+      }
+
+    });
+  }
+
   marcarRechazado(ccom: ClienteComprobante): void {
     Swal.fire({
       icon: 'question',
@@ -126,7 +158,8 @@ export class OfertaClienteComponent implements OnInit {
 
       if (res.value) {        
         ccom.estado = "Rechazado";
-        this.ccservice.ccUpdate(ccom).subscribe(resp => {         
+        this.ccservice.ccUpdate(ccom).subscribe(resp => {   
+
           this.ngOnInit();
 
           Swal.fire({
@@ -157,8 +190,10 @@ export class OfertaClienteComponent implements OnInit {
 
       if (res.value) {        
         ccom.estado = "Pendiente";
-        this.ccservice.ccUpdate(ccom).subscribe(resp => {         
+        this.ccservice.ccUpdate(ccom).subscribe(resp => {    
+
           this.ngOnInit();
+
           Swal.fire({
             icon: 'success',
             text: resp.mensaje
