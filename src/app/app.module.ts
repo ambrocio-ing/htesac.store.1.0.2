@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { PanelComponent } from './panel/panel.component';
 import { GpublicidadComponent } from './gpublicidad/gpublicidad.component';
-
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { GmembresiaComponent } from './gmembresia/gmembresia.component';
 import { ClientesComponent } from './clientes/clientes.component';
@@ -64,7 +64,6 @@ import { ModalDetallePagoComponent } from './compra-venta/venta/modal-detalle-pa
 import { VerImagenesComponent } from './producto-componente/ver-imagenes/ver-imagenes.component';
 import { PvariedadPipe } from './modelo/producto/pvariedad.pipe';
 import { ListaPendientesPorProductoComponent } from './compra-venta/venta/lista-pendientes-por-producto/lista-pendientes-por-producto.component';
-import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -130,7 +129,7 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    NgbModule
+    NgbPaginationModule
   ],
   providers: [
     {provide : HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}

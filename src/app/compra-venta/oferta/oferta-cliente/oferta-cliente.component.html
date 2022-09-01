@@ -50,7 +50,7 @@
 
                                             <button *ngIf="ccom.estado == 'Aceptado' || ccom.estado == 'Rechazado'"
                                                 (click)="marcarPendiente(ccom)"
-                                                class="btn btn-outline-info">Pediente</button>                                            
+                                                class="btn btn-outline-info">Pediente</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -70,8 +70,8 @@
                                     <td class="text-center">
                                         <div *ngIf="loginService.isPresentRolname('ROLE_ADMIN')">
                                             <button *ngIf="ccom.estado == 'Pendiente'" (click)="marcarAceptado(ccom)"
-                                            class="btn btn-outline-info">Aceptar</button>
-                                        </div>                                        
+                                                class="btn btn-outline-info">Aceptar</button>
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr bgcolor="skyblue" class="text-center">
@@ -145,7 +145,8 @@
                                         <span class="text-muted">Total:</span> {{ccom.total}}
                                     </td>
                                     <td class="text-center">
-                                        <button (click)="marcarAceptado(ccom)" *ngIf="loginService.isPresentRolname('ROLE_ADMIN')"
+                                        <button (click)="marcarAceptado(ccom)"
+                                            *ngIf="loginService.isPresentRolname('ROLE_ADMIN')"
                                             class="btn btn-outline-info ">
                                             Aceptar
                                         </button>

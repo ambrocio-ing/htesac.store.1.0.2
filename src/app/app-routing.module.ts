@@ -12,6 +12,7 @@ import { OfertaProveedorComponent } from './compra-venta/oferta/oferta-proveedor
 import { BusquedaVentasComponent } from './compra-venta/venta/busqueda-ventas/busqueda-ventas.component';
 import { ListaAnuladosComponent } from './compra-venta/venta/lista-anulados/lista-anulados.component';
 import { ListaPedidosComponent } from './compra-venta/venta/lista-pedidos/lista-pedidos.component';
+import { ListaPendientesPorProductoComponent } from './compra-venta/venta/lista-pendientes-por-producto/lista-pendientes-por-producto.component';
 import { ListaVendidosComponent } from './compra-venta/venta/lista-vendidos/lista-vendidos.component';
 import { GmembresiaComponent } from './gmembresia/gmembresia.component';
 import { GpublicidadComponent } from './gpublicidad/gpublicidad.component';
@@ -67,6 +68,7 @@ const routes: Routes = [
   { path: 'venta-pedido', component: ListaPedidosComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
   { path: 'venta-entregado', component: ListaVendidosComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
   { path: 'hora-en', component: HoraEntregaComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] } },
+  { path: 'lista/pro/pen', component: ListaPendientesPorProductoComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] } },
 
   { path: 'new-pass', component: RecuperarCComponent },
   { path: 'change-password-admin/:token', component: NuevaCComponent }

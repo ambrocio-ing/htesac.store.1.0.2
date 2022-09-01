@@ -64,6 +64,7 @@ export class OfertaClienteComponent implements OnInit {
       this.paginatorAceptado = resp;
       this.errMessageAceptado = "";
     }, err => {
+      this.ccaceptados.length = 0;
       this.errMessageAceptado = "Sin datos que mostrar";
     });
   }
@@ -75,6 +76,7 @@ export class OfertaClienteComponent implements OnInit {
       this.paginatorRechazado = resp;
       this.errMessageRechazado = "";
     }, err => {
+      this.ccrechazados.length = 0;
       this.errMessageRechazado = "Sin datos que mostrar";
     });
   }
@@ -86,6 +88,7 @@ export class OfertaClienteComponent implements OnInit {
       this.paginatorPendiente = resp;
       this.errMessagePendiente = "";
     }, err => {
+      this.ccpendientes.length = 0;
       this.errMessagePendiente = "Sin datos que mostrar";
     });
   }
