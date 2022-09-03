@@ -2,22 +2,24 @@ import { Component, OnInit } from '@angular/core';
 import { Comprobante } from 'src/app/modelo/comprobante/comprobante';
 import { DetallePago } from 'src/app/modelo/comprobante/detalle-pago';
 import { DireccionEnvio } from 'src/app/modelo/direcion-envio/direccion-envio';
+import { ComprobanteService } from 'src/app/servicio/comprobante/comprobante.service';
 import { LoginService } from 'src/app/servicio/login/login.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
-import { ComprobanteService } from '../../../servicio/comprobante/comprobante.service';
 
 @Component({
-  selector: 'app-lista-pedidos',
-  templateUrl: './lista-pedidos.component.html',
-  styleUrls: ['./lista-pedidos.component.css']
+  selector: 'app-lista-vendidos-barranca',
+  templateUrl: './lista-vendidos-barranca.component.html',
+  styleUrls: ['./lista-vendidos-barranca.component.css']
 })
-export class ListaPedidosComponent implements OnInit {
+export class ListaVendidosBarrancaComponent implements OnInit {
 
-  titulo: string = "LISTA DE VENTAS POR ENTREGAR";
-  tipo: string = "pedidos";
+  titulo: string = "LISTA DE VENTAS ENTREGADOS";
+  tipo: string = "entregados";
+  sucursal: string = "Barranca";
+
   url_backend: string = environment.urlBackend + "/mostrar/pto/imagen";
-
+  opcion: string = "";
   fecha!: string;
   comprobantes: Comprobante[] = [];
   errMessageBusqueda!: string;
@@ -29,8 +31,8 @@ export class ListaPedidosComponent implements OnInit {
   preloaderEntregando: boolean = false;
   editando!: number;
 
-  isVisibleDetallePagol: boolean = false;
-  detallePagol!: DetallePago;
+  isVisibleDetallePagov: boolean = false;
+  detallePagov!: DetallePago;
 
   constructor(private comService: ComprobanteService, public loginService: LoginService) { }
 
@@ -41,7 +43,7 @@ export class ListaPedidosComponent implements OnInit {
   buscar(): void {
     if (this.fecha != null) {
       this.comprobantes.length = 0;
-      this.comService.buscarPedidosPorFecha(this.fecha).subscribe(resp => {
+      this.comService.buscarEntregadosPorFecha(this.fecha, this.sucursal).subscribe(resp => {
         this.comprobantes = resp;
         this.errMessageBusqueda = "";
       }, err => {
@@ -60,16 +62,11 @@ export class ListaPedidosComponent implements OnInit {
     this.comprobantes.length = 0;
   }
 
-  verTodo(de: DireccionEnvio): void {
-    this.direccionEnvio = de;
-    this.isVisibleModal = true;
-  }
-
-  changeStatusEntregado(com: Comprobante): void {
+  changeStatusPedido(com: Comprobante): void {
 
     Swal.fire({
       icon: 'question',
-      text: 'Seguro que desea cambiar estado a ENTREGADO???',
+      text: 'Seguro que desea cambiar estado a ENTREGA PENDIENTE???',
       showCancelButton: true,
       confirmButtonText: 'Sí',
       cancelButtonText: 'No'
@@ -79,7 +76,7 @@ export class ListaPedidosComponent implements OnInit {
         this.editando = com.idcomprobante;
         const comm = new Comprobante();
         comm.idcomprobante = com.idcomprobante;
-        comm.estado = "Entregado";
+        comm.estado = "Entrega pendiente";
         comm.tipoComprobante = com.tipoComprobante;
         comm.idtransaccion = com.idtransaccion;
 
@@ -104,46 +101,14 @@ export class ListaPedidosComponent implements OnInit {
 
   }
 
-  changeStatusAnular(com: Comprobante): void {
-
-    Swal.fire({
-      icon: 'question',
-      text: 'Seguro que desea cambiar estado a ANULADO???',
-      showCancelButton: true,
-      confirmButtonText: 'Sí',
-      cancelButtonText: 'No'
-    }).then(res => {
-      if (res.value) {
-        this.preloaderAnulando = true;
-        this.editando = com.idcomprobante;
-        const comm = new Comprobante();
-        comm.idcomprobante = com.idcomprobante;
-        comm.estado = "Anulado";
-
-        this.comService.anularComprobante(comm).subscribe(resp => {
-          this.comprobantes = this.comprobantes.filter(co => co.idcomprobante != com.idcomprobante);
-          this.preloaderAnulando = false;
-          this.editando = 0;
-          Swal.fire({
-            icon: 'success',
-            text: resp.mensaje
-          });
-        }, err => {
-          this.preloaderAnulando = false;
-          this.editando = 0;
-          Swal.fire({
-            icon: 'error',
-            text: 'No fue posible anular estado, intentelo mas tarde'
-          });
-        });
-      }
-    });
-
+  verTodo(de: DireccionEnvio): void {
+    this.direccionEnvio = de;
+    this.isVisibleModal = true;
   }
 
   verDetallePago(com: Comprobante): void {
-    this.detallePagol = com.detallePago;
-    this.isVisibleDetallePagol = true;
+    this.detallePagov = com.detallePago;
+    this.isVisibleDetallePagov = true;
   }
 
 }

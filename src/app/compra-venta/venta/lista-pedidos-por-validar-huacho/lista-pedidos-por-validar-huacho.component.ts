@@ -8,14 +8,12 @@ import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-lista-ventas-por-validar',
-  templateUrl: './lista-ventas-por-validar.component.html',
-  styleUrls: ['./lista-ventas-por-validar.component.css']
+  selector: 'app-lista-pedidos-por-validar-huacho',
+  templateUrl: './lista-pedidos-por-validar-huacho.component.html',
+  styleUrls: ['./lista-pedidos-por-validar-huacho.component.css']
 })
-export class ListaVentasPorValidarComponent implements OnInit {
+export class ListaPedidosPorValidarHuachoComponent implements OnInit {
 
-  titulo: string = "LISTA DE VENTAS POR ENTREGAR";
-  tipo: string = "pedidos";
   url_backend: string = environment.urlBackend + "/mostrar/pto/imagen";
   url_backend_com: string = environment.urlBackend + "/mostrar/comprobante/imagen";
 
@@ -33,7 +31,11 @@ export class ListaVentasPorValidarComponent implements OnInit {
   errMessageComs!: string;
   paginator:any = {};
 
-  constructor(private comService: ComprobanteService, public loginService: LoginService) { }
+  sucursal!:string;
+
+  constructor(private comService: ComprobanteService, public loginService: LoginService) { 
+    this.sucursal = "Huacho";
+  }
 
   ngOnInit(): void {
 
@@ -46,7 +48,7 @@ export class ListaVentasPorValidarComponent implements OnInit {
   }
 
   listarPedidos(page: number): void {
-    this.comService.listarPedidos(page).subscribe(resp => {
+    this.comService.listarPedidosValidarHuacho(page).subscribe(resp => {
       this.comprobantes = resp.content;
       this.paginator = resp;
       this.errMessageComs = "";
@@ -58,7 +60,7 @@ export class ListaVentasPorValidarComponent implements OnInit {
   buscar(): void {
     if (this.fecha != null) {
       this.comprobantes.length = 0;
-      this.comService.buscarPedidosPorFechaValidar(this.fecha).subscribe(resp => {
+      this.comService.buscarPedidosPorFechaValidar(this.fecha, this.sucursal).subscribe(resp => {
         this.bus_comprobantes = resp;
         this.errMessageBusqueda = "";
       }, err => {

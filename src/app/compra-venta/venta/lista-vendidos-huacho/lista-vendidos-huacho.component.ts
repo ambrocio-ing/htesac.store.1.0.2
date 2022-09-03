@@ -8,14 +8,15 @@ import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-lista-vendidos',
-  templateUrl: './lista-vendidos.component.html',
-  styleUrls: ['./lista-vendidos.component.css']
+  selector: 'app-lista-vendidos-huacho',
+  templateUrl: './lista-vendidos-huacho.component.html',
+  styleUrls: ['./lista-vendidos-huacho.component.css']
 })
-export class ListaVendidosComponent implements OnInit {
+export class ListaVendidosHuachoComponent implements OnInit {
 
   titulo: string = "LISTA DE VENTAS ENTREGADOS";
   tipo: string = "entregados";
+  sucursal: string = "Huacho";
 
   url_backend: string = environment.urlBackend + "/mostrar/pto/imagen";
   opcion: string = "";
@@ -42,7 +43,7 @@ export class ListaVendidosComponent implements OnInit {
   buscar(): void {
     if (this.fecha != null) {
       this.comprobantes.length = 0;
-      this.comService.buscarEntregadosPorFecha(this.fecha).subscribe(resp => {
+      this.comService.buscarEntregadosPorFecha(this.fecha, this.sucursal).subscribe(resp => {
         this.comprobantes = resp;
         this.errMessageBusqueda = "";
       }, err => {

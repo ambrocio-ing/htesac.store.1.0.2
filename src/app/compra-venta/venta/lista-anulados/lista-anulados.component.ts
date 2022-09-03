@@ -9,10 +9,12 @@ export class ListaAnuladosComponent implements OnInit {
 
   tipo:string = "anulados";
   titulo:string = "LISTA DE VENTAS ANULADOS";
+  sucursal!:string;
 
   constructor() { }
 
   ngOnInit(): void {
+    
   }
 
 }

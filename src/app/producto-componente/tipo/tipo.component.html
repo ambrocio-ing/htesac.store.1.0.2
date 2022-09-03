@@ -14,7 +14,7 @@
                 TIPO
             </div>
             <div class="card-body">
-                <div class="row" *ngIf="loginService.isPresentRolname('ROLE_ADMIN')">
+                <div class="row">
                     <div class="col-sm">
                         <table class="table table-striped">
                             <thead>
@@ -105,11 +105,11 @@
                                 {{tipo.categoria.nombre}}
                                 <span *ngIf="tipo.categoria?.descripcion" style="color: blue;">Descripción Cat:</span>
                                 {{tipo.categoria.descripcion}}
-                                <a *ngIf="loginService.isPresentRolname('ROLE_ADMIN')" (click)="obtener(tipo)">
+                                <a (click)="obtener(tipo)">
                                     <img style="width: 30px; height: 30px; cursor: pointer;margin-left: 10px;"
                                         src="../../../assets/img/editar.jpeg" alt="">
                                 </a>
-                                <a *ngIf="loginService.isPresentRolname('ROLE_ADMIN')" (click)="eliminar(tipo)">
+                                <a (click)="eliminar(tipo)">
                                     <img style="width: 30px; height: 30px; cursor: pointer; margin-left: 10px;"
                                         src="../../../assets/img/eliminar.png" alt="">
                                 </a>

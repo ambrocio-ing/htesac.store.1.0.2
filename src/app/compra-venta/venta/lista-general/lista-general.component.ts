@@ -18,6 +18,7 @@ export class ListaGeneralComponent implements OnInit {
 
   @Input() titulo!: string;
   @Input() tipo!: string;
+  @Input() sucursal!:string;
 
   comprobantes: Comprobante[] = [];
   errMessageComs!: string;
@@ -44,32 +45,49 @@ export class ListaGeneralComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if (this.tipo == "pedidos") {
-      this.listarPedidos(0);
+    if (this.tipo == "pedidos" && this.sucursal == "Huacho") {
+      this.listarPedidosHuacho(0);
       this.comService.cbPaginator.subscribe(page => {
-        this.listarPedidos(page);
+        this.listarPedidosHuacho(page);
       });
       this.isPedido = true;
     }
-
-    if (this.tipo == "entregados") {
-      this.listarEntregados(0);
+    else if(this.tipo == "pedidos" && this.sucursal == "Barranca"){
+      this.listarPedidosBarranca(0);
       this.comService.cbPaginator.subscribe(page => {
-        this.listarEntregados(page);
+        this.listarPedidosBarranca(page);
+      });
+      this.isPedido = true;
+    }
+    else if (this.tipo == "entregados" && this.sucursal == "Huacho") {
+      this.listarEntregadosHuacho(0);
+      this.comService.cbPaginator.subscribe(page => {
+        this.listarEntregadosHuacho(page);
       });
     }
-
-    if (this.tipo == "anulados") {
-      this.listarAnulados(0);
+    else if (this.tipo == "entregados" && this.sucursal == "Barranca") {
+      this.listarEntregadosBarranca(0);
       this.comService.cbPaginator.subscribe(page => {
-        this.listarAnulados(page);
+        this.listarEntregadosBarranca(page);
+      });
+    }
+    else if (this.tipo == "anulados" && this.sucursal == "Huacho") {
+      this.listarAnuladosHuacho(0);
+      this.comService.cbPaginator.subscribe(page => {
+        this.listarAnuladosHuacho(page);
+      });
+    }
+    else{
+      this.listarAnuladosBarranca(0);
+      this.comService.cbPaginator.subscribe(page => {
+        this.listarAnuladosBarranca(page);
       });
     }
 
   }
 
-  listarPedidos(page: number): void {
-    this.comService.listarPedidos(page).subscribe(resp => {
+  listarPedidosHuacho(page: number): void {
+    this.comService.listarPedidosHuacho(page).subscribe(resp => {
       this.comprobantes = resp.content;
       this.paginator = resp;
       this.errMessageComs = "";
@@ -78,8 +96,8 @@ export class ListaGeneralComponent implements OnInit {
     });
   }
 
-  listarEntregados(page: number): void {
-    this.comService.listarEntregados(page).subscribe(resp => {
+  listarPedidosBarranca(page: number): void {
+    this.comService.listarPedidosBarranca(page).subscribe(resp => {
       this.comprobantes = resp.content;
       this.paginator = resp;
       this.errMessageComs = "";
@@ -88,8 +106,38 @@ export class ListaGeneralComponent implements OnInit {
     });
   }
 
-  listarAnulados(page: number): void {
-    this.comService.listarAnulados(page).subscribe(resp => {
+  listarEntregadosHuacho(page: number): void {
+    this.comService.listarEntregadosHuacho(page).subscribe(resp => {
+      this.comprobantes = resp.content;
+      this.paginator = resp;
+      this.errMessageComs = "";
+    }, err => {
+      this.errMessageComs = "Sin datos que mostrar";
+    });
+  }
+
+  listarEntregadosBarranca(page: number): void {
+    this.comService.listarEntregadosBarranca(page).subscribe(resp => {
+      this.comprobantes = resp.content;
+      this.paginator = resp;
+      this.errMessageComs = "";
+    }, err => {
+      this.errMessageComs = "Sin datos que mostrar";
+    });
+  }
+
+  listarAnuladosHuacho(page: number): void {
+    this.comService.listarAnuladosHuacho(page).subscribe(resp => {
+      this.comprobantes = resp.content;
+      this.paginator = resp;
+      this.errMessageComs = "";
+    }, err => {
+      this.errMessageComs = "Sin datos que mostrar";
+    });
+  }
+
+  listarAnuladosBarranca(page: number): void {
+    this.comService.listarAnuladosBarranca(page).subscribe(resp => {
       this.comprobantes = resp.content;
       this.paginator = resp;
       this.errMessageComs = "";
@@ -147,7 +195,7 @@ export class ListaGeneralComponent implements OnInit {
 
     Swal.fire({
       icon: 'question',
-      text: 'Seguro que desea anular el comprobante ???',
+      text: 'Seguro que desea anular el comprobante ??? ten en cuenta que el stock será restablecido, los cambios no podran ser restablecidos una vez anulado',
       showCancelButton: true,
       confirmButtonText: 'Sí',
       cancelButtonText: 'No'

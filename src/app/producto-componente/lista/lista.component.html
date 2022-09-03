@@ -204,7 +204,7 @@
                                         </table>
                                     </td>
                                     <td>
-                                        <table *ngIf="loginService.isPresentRolname('ROLE_ADMIN')">
+                                        <table>
                                             <tr>
                                                 <td>
                                                     <a [routerLink]="['/pro-edit',producto.idproducto]">
@@ -238,7 +238,7 @@
                     <div style="width: 100%; overflow: auto;">
                         <table class="table table-striped" style="width: 100%; min-width: 580px;">
                             <thead>
-                                <tr class="text-center" *ngIf="loginService.isPresentRolname('ROLE_ADMIN')">
+                                <tr class="text-center">
                                     <th colspan="4"></th>
                                     <th>
                                         <button routerLink="/pro-nuevo" class="btn btn-outline-primary">Nuevo</button>
@@ -249,7 +249,7 @@
                                     <th scope="col">Datos</th>
                                     <th scope="col">Categoria/Tipo</th>
                                     <th scope="col">Detalle</th>
-                                    <th scope="col" *ngIf="loginService.isPresentRolname('ROLE_ADMIN')">Acción</th>
+                                    <th scope="col">Acción</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -405,7 +405,7 @@
                                             </tr>
                                         </table>
                                     </td>
-                                    <td *ngIf="loginService.isPresentRolname('ROLE_ADMIN')">
+                                    <td>
                                         <table>
                                             <tr>
                                                 <td>

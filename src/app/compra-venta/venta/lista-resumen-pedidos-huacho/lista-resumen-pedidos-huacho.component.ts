@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MResumenVenta } from 'src/app/modelo/comprobante/m-resumen-venta';
 import { ComprobanteService } from 'src/app/servicio/comprobante/comprobante.service';
 import Swal from 'sweetalert2';
@@ -6,12 +6,12 @@ import JsPdf from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
 @Component({
-  selector: 'app-lista-pendientes-por-producto',
-  templateUrl: './lista-pendientes-por-producto.component.html',
-  styleUrls: ['./lista-pendientes-por-producto.component.css']
+  selector: 'app-lista-resumen-pedidos-huacho',
+  templateUrl: './lista-resumen-pedidos-huacho.component.html',
+  styleUrls: ['./lista-resumen-pedidos-huacho.component.css']
 })
-export class ListaPendientesPorProductoComponent implements OnInit {
-  
+export class ListaResumenPedidosHuachoComponent implements OnInit {
+
   preloader: boolean = false;
   fechaEntrega!: string;
 
@@ -23,7 +23,11 @@ export class ListaPendientesPorProductoComponent implements OnInit {
   page: number = 1;
   pageSize: number = 10;
 
-  constructor(private comService: ComprobanteService) { }
+  sucursal!: string;
+
+  constructor(private comService: ComprobanteService) {
+    this.sucursal = "Huacho";
+  }
 
   ngOnInit(): void {
 
@@ -75,11 +79,11 @@ export class ListaPendientesPorProductoComponent implements OnInit {
         text: 'No se ha encontrado registros que descargar'
       });
     }
-  }  
+  }
 
   listarResumenes(): void {
     this.preloader = true;
-    this.comService.resumenes().subscribe(resp => {
+    this.comService.resumenes(this.sucursal).subscribe(resp => {
       this.preloader = false;
       this.resumenes = resp;
       this.errMessageResumenes = "";
@@ -95,7 +99,7 @@ export class ListaPendientesPorProductoComponent implements OnInit {
     if (this.fechaEntrega != null && this.fechaEntrega != "") {
       this.bus_resumenes.length = 0;
       this.preloader = true;
-      this.comService.resumenesPorFecha(this.fechaEntrega).subscribe(resp => {
+      this.comService.resumenesPorFecha(this.fechaEntrega, this.sucursal).subscribe(resp => {
         this.preloader = false;
         this.bus_resumenes = resp;
         this.errMessageBusResumenes = "";

@@ -11,9 +11,14 @@ import { OfertaClienteComponent } from './compra-venta/oferta/oferta-cliente/ofe
 import { OfertaProveedorComponent } from './compra-venta/oferta/oferta-proveedor/oferta-proveedor.component';
 import { BusquedaVentasComponent } from './compra-venta/venta/busqueda-ventas/busqueda-ventas.component';
 import { ListaAnuladosComponent } from './compra-venta/venta/lista-anulados/lista-anulados.component';
-import { ListaPedidosComponent } from './compra-venta/venta/lista-pedidos/lista-pedidos.component';
-import { ListaPendientesPorProductoComponent } from './compra-venta/venta/lista-pendientes-por-producto/lista-pendientes-por-producto.component';
-import { ListaVendidosComponent } from './compra-venta/venta/lista-vendidos/lista-vendidos.component';
+import { ListaPedidosBarrancaComponent } from './compra-venta/venta/lista-pedidos-barranca/lista-pedidos-barranca.component';
+import { ListaPedidosHuachoComponent } from './compra-venta/venta/lista-pedidos-huacho/lista-pedidos-huacho.component';
+import { ListaPedidosPorValidarBarrancaComponent } from './compra-venta/venta/lista-pedidos-por-validar-barranca/lista-pedidos-por-validar-barranca.component';
+import { ListaPedidosPorValidarHuachoComponent } from './compra-venta/venta/lista-pedidos-por-validar-huacho/lista-pedidos-por-validar-huacho.component';
+import { ListaResumenPedidosBarrancaComponent } from './compra-venta/venta/lista-resumen-pedidos-barranca/lista-resumen-pedidos-barranca.component';
+import { ListaResumenPedidosHuachoComponent } from './compra-venta/venta/lista-resumen-pedidos-huacho/lista-resumen-pedidos-huacho.component';
+import { ListaVendidosBarrancaComponent } from './compra-venta/venta/lista-vendidos-barranca/lista-vendidos-barranca.component';
+import { ListaVendidosHuachoComponent } from './compra-venta/venta/lista-vendidos-huacho/lista-vendidos-huacho.component';
 import { GmembresiaComponent } from './gmembresia/gmembresia.component';
 import { GpublicidadComponent } from './gpublicidad/gpublicidad.component';
 import { HoraEntregaComponent } from './hora-entrega/hora-entrega.component';
@@ -42,17 +47,17 @@ const routes: Routes = [
   { path: 'provee-lista', component: ProveedorListaComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
 
   { path: 'pro-lista', component: ListaComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
-  { path: 'pro-nuevo', component: NuevoComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] } },
-  { path: 'pro-edit/:id', component: EditarComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] } },
+  { path: 'pro-nuevo', component: NuevoComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
+  { path: 'pro-edit/:id', component: EditarComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
   { path: 'cate', component: CategoriaComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
   { path: 'tipo', component: TipoComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
 
   { path: 'desti', component: DestinatariosComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
   { path: 'suje', component: ListaSujerenciaComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
 
-  { path: 'ingre-nuevo', component: NuevoIngresoComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] } },
+  { path: 'ingre-nuevo', component: NuevoIngresoComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
   { path: 'ingre-lista', component: ListaIngresoComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
-  { path: 'ingre-edit/:id', component: EditarIngresoComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] } },
+  { path: 'ingre-edit/:id', component: EditarIngresoComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
 
   { path: 'oferta-cli', component: OfertaClienteComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
   { path: 'oferta-pro', component: OfertaProveedorComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
@@ -64,14 +69,25 @@ const routes: Routes = [
   { path: 'libro-re', component: ListaLibroReclamosComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
 
   { path: 'venta-busqueda', component: BusquedaVentasComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
-  { path: 'venta-anulado', component: ListaAnuladosComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
-  { path: 'venta-pedido', component: ListaPedidosComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
-  { path: 'venta-entregado', component: ListaVendidosComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
-  { path: 'hora-en', component: HoraEntregaComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] } },
-  { path: 'lista/pro/pen', component: ListaPendientesPorProductoComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] } },
+  { path: 'venta-anulado', component: ListaAnuladosComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },  
+  
+  { path: '/barranca/venta-pedido', component: ListaPedidosBarrancaComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
+  { path: '/huacho/venta-pedido', component: ListaPedidosHuachoComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
+  
+  { path: '/barranca/venta-entregado', component: ListaVendidosBarrancaComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
+  { path: '/huacho/venta-entregado', component: ListaVendidosHuachoComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
+  
+  { path: '/barranca/resumen', component: ListaResumenPedidosBarrancaComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
+  { path: '/huacho/resumen', component: ListaResumenPedidosHuachoComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
+
+  { path: '/barranca/validar', component: ListaPedidosPorValidarBarrancaComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] } },
+  { path: '/huacho/validar', component: ListaPedidosPorValidarHuachoComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] } },
+
+  { path: 'hora-en', component: HoraEntregaComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] } },  
 
   { path: 'new-pass', component: RecuperarCComponent },
   { path: 'change-password-admin/:token', component: NuevaCComponent }
+  
 ];
 
 @NgModule({

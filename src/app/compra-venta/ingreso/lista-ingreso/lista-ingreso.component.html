@@ -87,7 +87,7 @@
                                         {{di.fechaVencimiento}}
                                     </td>
                                     <td>
-                                        <button [routerLink]="['/ingre-edit', di.ingresoId]"*ngIf="loginService.isPresentRolname('ROLE_ADMIN')"
+                                        <button [routerLink]="['/ingre-edit', di.ingresoId]"
                                             class="btn btn-outline-primary form-control" type="button">Editar</button>
                                     </td>
                                 </tr>
@@ -164,7 +164,7 @@
                                         {{di.fechaVencimiento}}
                                     </td>
                                     <td>
-                                        <button [routerLink]="['/ingre-edit',di.ingresoId]" *ngIf="loginService.isPresentRolname('ROLE_ADMIN')"
+                                        <button [routerLink]="['/ingre-edit',di.ingresoId]"
                                             class="btn btn-outline-primary form-control" type="button">Editar</button>
                                     </td>
                                 </tr>

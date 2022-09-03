@@ -15,7 +15,7 @@
                 CATEGORIA
             </div>
             <div class="card-body">
-                <div class="row" *ngIf="loginService.isPresentRolname('ROLE_ADMIN')">
+                <div class="row">
                     <div class="col">
                         <form (ngSubmit)="saveCategoria()" #asFormCategoria="ngForm">
                             <div class="form-floating mb-3">
@@ -54,11 +54,11 @@
                                 <span style="color: blue;">Nombre:</span> {{categoria.nombre}}
                                 <span *ngIf="categoria?.descripcion" style="color: blue;">Descripción:</span>
                                 {{categoria.descripcion}}
-                                <a *ngIf="loginService.isPresentRolname('ROLE_ADMIN')" (click)="obtener(categoria)">
+                                <a (click)="obtener(categoria)">
                                     <img style="width: 30px; height: 30px; cursor: pointer;margin-left: 10px;"
                                         src="../../../assets/img/editar.jpeg" alt="">
                                 </a>
-                                <a *ngIf="loginService.isPresentRolname('ROLE_ADMIN')" (click)="eliminar(categoria)">
+                                <a (click)="eliminar(categoria)">
                                     <img style="width: 30px; height: 30px; cursor: pointer; margin-left: 10px;"
                                         src="../../../assets/img/eliminar.png" alt="">
                                 </a>

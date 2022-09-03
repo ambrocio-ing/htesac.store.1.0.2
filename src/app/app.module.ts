@@ -41,8 +41,6 @@ import { CliPaginadorComponent } from './clientes/cli-paginador/cli-paginador.co
 import { CliVerComponent } from './clientes/cli-ver/cli-ver.component';
 import { ProveedorListaComponent } from './proveedor/proveedor-lista/proveedor-lista.component';
 import { ProveedorPaginadorComponent } from './proveedor/proveedor-paginador/proveedor-paginador.component';
-import { ListaVendidosComponent } from './compra-venta/venta/lista-vendidos/lista-vendidos.component';
-import { ListaPedidosComponent } from './compra-venta/venta/lista-pedidos/lista-pedidos.component';
 import { ListaAnuladosComponent } from './compra-venta/venta/lista-anulados/lista-anulados.component';
 import { BusquedaVentasComponent } from './compra-venta/venta/busqueda-ventas/busqueda-ventas.component';
 import { PaginadorGeneralComponent } from './compra-venta/venta/paginador-general/paginador-general.component';
@@ -63,8 +61,14 @@ import { HoraEntregaComponent } from './hora-entrega/hora-entrega.component';
 import { ModalDetallePagoComponent } from './compra-venta/venta/modal-detalle-pago/modal-detalle-pago.component';
 import { VerImagenesComponent } from './producto-componente/ver-imagenes/ver-imagenes.component';
 import { PvariedadPipe } from './modelo/producto/pvariedad.pipe';
-import { ListaPendientesPorProductoComponent } from './compra-venta/venta/lista-pendientes-por-producto/lista-pendientes-por-producto.component';
-import { ListaVentasPorValidarComponent } from './compra-venta/venta/lista-ventas-por-validar/lista-ventas-por-validar.component';
+import { ListaPedidosHuachoComponent } from './compra-venta/venta/lista-pedidos-huacho/lista-pedidos-huacho.component';
+import { ListaPedidosBarrancaComponent } from './compra-venta/venta/lista-pedidos-barranca/lista-pedidos-barranca.component';
+import { ListaVendidosBarrancaComponent } from './compra-venta/venta/lista-vendidos-barranca/lista-vendidos-barranca.component';
+import { ListaVendidosHuachoComponent } from './compra-venta/venta/lista-vendidos-huacho/lista-vendidos-huacho.component';
+import { ListaResumenPedidosHuachoComponent } from './compra-venta/venta/lista-resumen-pedidos-huacho/lista-resumen-pedidos-huacho.component';
+import { ListaResumenPedidosBarrancaComponent } from './compra-venta/venta/lista-resumen-pedidos-barranca/lista-resumen-pedidos-barranca.component';
+import { ListaPedidosPorValidarBarrancaComponent } from './compra-venta/venta/lista-pedidos-por-validar-barranca/lista-pedidos-por-validar-barranca.component';
+import { ListaPedidosPorValidarHuachoComponent } from './compra-venta/venta/lista-pedidos-por-validar-huacho/lista-pedidos-por-validar-huacho.component';
 
 @NgModule({
   declarations: [
@@ -102,8 +106,6 @@ import { ListaVentasPorValidarComponent } from './compra-venta/venta/lista-venta
     CliVerComponent,
     ProveedorListaComponent,
     ProveedorPaginadorComponent,
-    ListaVendidosComponent,
-    ListaPedidosComponent,
     ListaAnuladosComponent,
     BusquedaVentasComponent,    
     PaginadorGeneralComponent,
@@ -123,8 +125,14 @@ import { ListaVentasPorValidarComponent } from './compra-venta/venta/lista-venta
     ModalDetallePagoComponent,
     VerImagenesComponent,
     PvariedadPipe,
-    ListaPendientesPorProductoComponent,
-    ListaVentasPorValidarComponent 
+    ListaPedidosHuachoComponent,
+    ListaPedidosBarrancaComponent,
+    ListaVendidosBarrancaComponent,
+    ListaVendidosHuachoComponent,
+    ListaResumenPedidosHuachoComponent,
+    ListaResumenPedidosBarrancaComponent,
+    ListaPedidosPorValidarBarrancaComponent,
+    ListaPedidosPorValidarHuachoComponent 
   ],
   imports: [
     BrowserModule,
