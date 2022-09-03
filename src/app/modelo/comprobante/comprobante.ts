@@ -19,7 +19,8 @@ export class Comprobante {
     total!: number;
     nbolsa!:string;
     fechaEntrega!: string;
-    formaEnvio!:string;    
+    formaEnvio!:string;  
+    imagen!:string; 
     direccionEnvio!: DireccionEnvio;
     detallePago!:DetallePago;
     detalleComprobantes: DetalleComprobante[] = [];

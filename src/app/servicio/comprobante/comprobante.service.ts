@@ -26,6 +26,15 @@ export class ComprobanteService {
     );
   }
 
+  public listarPedidosValidar(page:number) : Observable<any> {
+    return this.http.get(this.url+"/por/validar/"+page).pipe(
+      map((resp:any) => {
+        resp.content as Comprobante[];
+        return resp;
+      })
+    );
+  }
+
   public listarEntregados(page:number) : Observable<any> {
     return this.http.get(this.url+"/en/"+page).pipe(
       map((resp:any) => {
@@ -62,6 +71,10 @@ export class ComprobanteService {
 
   public buscarPedidosPorFecha(fecha:string) : Observable<Comprobante[]> {
     return this.http.get<Comprobante[]>(this.url+"/fp/"+fecha);
+  }
+
+  public buscarPedidosPorFechaValidar(fecha:string) : Observable<Comprobante[]> {
+    return this.http.get<Comprobante[]>(this.url+"/validar/by/"+fecha);
   }
 
   public buscarEntregadosPorFecha(fecha:string) : Observable<Comprobante[]> {

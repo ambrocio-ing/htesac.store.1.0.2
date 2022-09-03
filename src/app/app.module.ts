@@ -64,6 +64,7 @@ import { ModalDetallePagoComponent } from './compra-venta/venta/modal-detalle-pa
 import { VerImagenesComponent } from './producto-componente/ver-imagenes/ver-imagenes.component';
 import { PvariedadPipe } from './modelo/producto/pvariedad.pipe';
 import { ListaPendientesPorProductoComponent } from './compra-venta/venta/lista-pendientes-por-producto/lista-pendientes-por-producto.component';
+import { ListaVentasPorValidarComponent } from './compra-venta/venta/lista-ventas-por-validar/lista-ventas-por-validar.component';
 
 @NgModule({
   declarations: [
@@ -122,7 +123,8 @@ import { ListaPendientesPorProductoComponent } from './compra-venta/venta/lista-
     ModalDetallePagoComponent,
     VerImagenesComponent,
     PvariedadPipe,
-    ListaPendientesPorProductoComponent 
+    ListaPendientesPorProductoComponent,
+    ListaVentasPorValidarComponent 
   ],
   imports: [
     BrowserModule,

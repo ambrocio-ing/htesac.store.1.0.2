@@ -62,6 +62,7 @@ export class OfertaProveedorComponent implements OnInit {
       this.paginatorPendiente = resp;
       this.errMessagePendiente = "";
     }, err => {
+      this.pcpendientes.length = 0;
       this.errMessagePendiente = "Sin datos que mostrar";
     });
   }
@@ -72,6 +73,7 @@ export class OfertaProveedorComponent implements OnInit {
       this.paginatorAceptado = resp;
       this.errMessageAceptado = "";
     }, err => {
+      this.pcaceptados.length = 0;
       this.errMessageAceptado = "Sin datos que mostrar";
     });
   }
@@ -82,6 +84,7 @@ export class OfertaProveedorComponent implements OnInit {
       this.paginatorRechazado = resp;
       this.errMessageRechazado = "";
     }, err => {
+      this.pcrechazados.length = 0;
       this.errMessageRechazado = "Sin datos que mostrar";
     });
   }  
@@ -102,8 +105,7 @@ export class OfertaProveedorComponent implements OnInit {
         title:'Datos incompletos',
         text:'Ingrese las dos fechas necesarias para empezar la busqueda'
       });
-    }
-    
+    }    
   }
 
   marcarAceptado(pc:ProveedorComprobante): void {
@@ -151,7 +153,7 @@ export class OfertaProveedorComponent implements OnInit {
             icon:'success',
             text:resp.mensaje
           });
-        }, err => {
+        }, err => {          
           Swal.fire({
             icon:'success',
             text:'No fue posible actualizar estado, inténtelo mas tarde'
