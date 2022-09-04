@@ -71,17 +71,17 @@ const routes: Routes = [
   { path: 'venta-busqueda', component: BusquedaVentasComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
   { path: 'venta-anulado', component: ListaAnuladosComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },  
   
-  { path: '/barranca/venta-pedido', component: ListaPedidosBarrancaComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
-  { path: '/huacho/venta-pedido', component: ListaPedidosHuachoComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
+  { path: 'barranca/venta-pedido', component: ListaPedidosBarrancaComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
+  { path: 'huacho/venta-pedido', component: ListaPedidosHuachoComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
   
-  { path: '/barranca/venta-entregado', component: ListaVendidosBarrancaComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
-  { path: '/huacho/venta-entregado', component: ListaVendidosHuachoComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
+  { path: 'barranca/venta-entregado', component: ListaVendidosBarrancaComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
+  { path: 'huacho/venta-entregado', component: ListaVendidosHuachoComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
   
-  { path: '/barranca/resumen', component: ListaResumenPedidosBarrancaComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
-  { path: '/huacho/resumen', component: ListaResumenPedidosHuachoComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
+  { path: 'barranca/resumen', component: ListaResumenPedidosBarrancaComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
+  { path: 'huacho/resumen', component: ListaResumenPedidosHuachoComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
 
-  { path: '/barranca/validar', component: ListaPedidosPorValidarBarrancaComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] } },
-  { path: '/huacho/validar', component: ListaPedidosPorValidarHuachoComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] } },
+  { path: 'barranca/validar', component: ListaPedidosPorValidarBarrancaComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] } },
+  { path: 'huacho/validar', component: ListaPedidosPorValidarHuachoComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] } },
 
   { path: 'hora-en', component: HoraEntregaComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] } },  
 
