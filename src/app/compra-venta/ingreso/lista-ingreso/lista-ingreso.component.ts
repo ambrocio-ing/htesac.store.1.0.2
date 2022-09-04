@@ -22,6 +22,7 @@ export class ListaIngresoComponent implements OnInit {
   tipo:string = "ingreso";
 
   texto:string = "";
+  categoria:string = "";
 
   productoSeleccionado:Producto = new Producto();
   visibleModal:boolean = false;
@@ -50,11 +51,31 @@ export class ListaIngresoComponent implements OnInit {
     });
   }
 
-  buscar() {
+  buscar(): void {
     if(this.texto.length > 0){
       this.bdetalleIngresos.length = 0;
       const texto = this.texto.split(" ").join("");
       this.ingresoService.searchDIByProducto(texto).subscribe(resp => {
+        this.bdetalleIngresos = resp;
+        this.errMessageSearch = "";
+      }, err => {
+        this.errMessageSearch = "Sin datos que mostrar";
+      });
+    }
+    else{
+      Swal.fire({
+        icon:'info',
+        title:'Datos incompletos',
+        text:'Primero ingrese nombre o código del producto a buscar'
+      });
+    }
+  }
+
+  buscarCategoria(): void {
+    if(this.categoria.length > 0){
+      this.bdetalleIngresos.length = 0;
+      const texto = this.categoria.split(" ").join("").toUpperCase();
+      this.ingresoService.searchDIByCategoria(texto).subscribe(resp => {
         this.bdetalleIngresos = resp;
         this.errMessageSearch = "";
       }, err => {

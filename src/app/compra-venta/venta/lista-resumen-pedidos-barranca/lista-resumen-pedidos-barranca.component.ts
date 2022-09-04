@@ -69,7 +69,26 @@ export class ListaResumenPedidosBarrancaComponent implements OnInit {
       autoTable(pdf, { html: '#my-table' });
 
       pdf.output('dataurlnewwindow');
-      pdf.save('table' + new Date(Date.now()).getTime() + '.pdf');
+      pdf.save('resumen_' + new Date(Date.now()).getTime() + '.pdf');
+
+    }
+    else {
+      Swal.fire({
+        icon: 'info',
+        text: 'No se ha encontrado registros que descargar'
+      });
+    }
+  }  
+
+  descargarBusqueda() {
+    if (this.bus_resumenes.length > 0) {
+      var pdf = new JsPdf();
+      pdf.setFontSize(15);
+      pdf.text("RESUMEN DE PEDIDOS", 11, 8);
+      autoTable(pdf, { html: '#bus-table' });
+
+      pdf.output('dataurlnewwindow');
+      pdf.save('resumen_' + new Date(Date.now()).getTime() + '.pdf');
 
     }
     else {

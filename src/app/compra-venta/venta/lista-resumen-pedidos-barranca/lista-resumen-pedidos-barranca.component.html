@@ -17,10 +17,9 @@
             <div class="row mt-2">
                 <div class="col">
                     <div>                       
-                        <div style="width: 100%; overflow: auto; padding: 10px;">                       
-                            <table  class="table table-hover table-striped" 
-                                style="min-width: 500px;">
-                                <thead>  
+                        <div style="width: 100%; overflow: auto; padding: 10px;">      
+                            <table class="table table-hover table-striped mb-1" style="min-width: 500px;">
+                                <thead>
                                     <tr>
                                         <th colspan="2">BUSQUEDA</th>
                                         <th>
@@ -29,7 +28,17 @@
                                         <th class="text-center">
                                             <button (click)="buscar()" class="btn btn-success">Buscar</button>
                                         </th>
-                                    </tr>                              
+                                    </tr> 
+                                    <tr>
+                                        <th colspan="4">
+                                            <button (click)="descargarBusqueda()" class="btn btn-info">Descargar</button>
+                                        </th>
+                                    </tr> 
+                                </thead>
+                            </table>                 
+                            <table id="bus-table" class="table table-hover table-striped" 
+                                style="min-width: 500px;">
+                                <thead>                       
                                     <tr bgcolor="skyblue">                                        
                                         <th scope="col">Producto</th>
                                         <th scope="col">Fecha Entrega</th>

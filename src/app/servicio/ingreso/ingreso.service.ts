@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class IngresoService {
+export class IngresoService {  
 
   public cbIngreso:EventEmitter<number> = new EventEmitter();
   private url = environment.urlBackend+"/ingreso/in";
@@ -18,6 +18,10 @@ export class IngresoService {
 
   public searchDIByProducto(texto:string) : Observable<DetalleIngreso[]> {
     return this.http.get<DetalleIngreso[]>(this.url+"/di/por/producto/"+texto);
+  }
+
+  searchDIByCategoria(texto: string): Observable<DetalleIngreso[]>{
+    return this.http.get<DetalleIngreso[]>(this.url+"/di/por/categoria/"+texto);
   }
 
   public getDIByIdproducto(idp:number) : Observable<DetalleIngreso> {

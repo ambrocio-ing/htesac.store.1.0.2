@@ -20,6 +20,17 @@
                         <table class="table table-striped" style="width: 100%;">
                             <thead>
                                 <tr>
+                                    <th colspan="4">Busqueda por categoria del producto</th>
+                                    <th>
+                                        <input name="categoria" [(ngModel)]="categoria" type="text" class="form-control"
+                                            placeholder="Nombre o código">
+                                    </th>
+                                    <th>
+                                        <button (click)="buscarCategoria()" class="btn btn-outline-success"
+                                            type="button">Buscar</button>
+                                    </th>
+                                </tr>
+                                <tr>
                                     <th colspan="4">Busqueda por producto</th>
                                     <th>
                                         <input name="texto" [(ngModel)]="texto" type="text" class="form-control"

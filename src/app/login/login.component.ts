@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
 
   usuarioLogin:any = {usernameOrEmail:null,password:null};
   errMessageLogin!:string;
+  preloaderLogin:boolean = false;
 
   constructor(private router: Router, public loginService:LoginService) { }
 
@@ -24,7 +25,9 @@ export class LoginComponent implements OnInit {
 
   iniciarSesion() : void {
     if(this.usuarioLogin.usernameOrEmail != null && this.usuarioLogin.password != null){
+      this.preloaderLogin = true;
       this.loginService.login(this.usuarioLogin).subscribe(resp => {
+        this.preloaderLogin = false;
         console.log("LOGIN*******", resp);
         if(resp.estado){
           let jwtdto:JwtDto = new JwtDto();
@@ -37,6 +40,9 @@ export class LoginComponent implements OnInit {
           this.errMessageLogin = resp.mensaje;
         }     
 
+      }, err => {
+        this.preloaderLogin = false;
+        this.errMessageLogin = "Autenticación fallida, verifique sus credenciales";
       });
     }
     else{
@@ -45,10 +51,36 @@ export class LoginComponent implements OnInit {
         text:'Datos incompletos, llene los campos requeridos para continuar'
       });
     }
-  }
+  }  
 
-  recuperarPassword() : void {
+  iniciar_Sesion(event:any){
+    if(this.usuarioLogin.usernameOrEmail != null && this.usuarioLogin.password != null){
+      this.preloaderLogin = true;
+      this.loginService.login(this.usuarioLogin).subscribe(resp => {
+        this.preloaderLogin = false;
+        console.log("LOGIN*******", resp);
+        if(resp.estado){
+          let jwtdto:JwtDto = new JwtDto();
+          jwtdto = resp.jwtDto;
+          const token:string = resp.token;
+          this.loginService.guardarUsuario(jwtdto, token);
+          this.router.navigate(['inicio']);
+        }
+        else{
+          this.errMessageLogin = resp.mensaje;
+        }     
 
+      }, err => {
+        this.preloaderLogin = false;
+        this.errMessageLogin = "Autenticación fallida, verifique sus credenciales";
+      });
+    }
+    else{
+      Swal.fire({
+        icon:'info',
+        text:'Datos incompletos, llene los campos requeridos para continuar'
+      });
+    }
   }
   
 }
