@@ -75,7 +75,7 @@ export class ComprobanteService {
 
   //Pedidos por validar
   public listarPedidosValidarBarranca(page: number): Observable<any> {
-    return this.http.get(this.url + "/por/validar/barranca" + page).pipe(
+    return this.http.get(this.url + "/por/validar/barranca/" + page).pipe(
       map((resp: any) => {
         resp.content as Comprobante[];
         return resp;

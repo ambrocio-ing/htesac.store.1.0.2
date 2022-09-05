@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
+import { DetalleMembresia } from 'src/app/modelo/membresia/detalle-membresia';
 import { Membresia } from 'src/app/modelo/membresia/membresia';
 import { environment } from 'src/environments/environment';
 
@@ -11,6 +12,7 @@ import { environment } from 'src/environments/environment';
 export class MembresiaService {
 
   private url: string = environment.urlBackend + "/membresia/mem";
+  private url_det: string = environment.urlBackend + "/detalle-mem/dm";
 
   constructor(private http: HttpClient) { }
 
@@ -79,6 +81,19 @@ export class MembresiaService {
         return throwError(e);
       })
     );
+  }
+
+  //metodo para detalle de membresia
+  public listDetMembresiaPorCliente(texto:string): Observable<DetalleMembresia[]> {
+    return this.http.get<DetalleMembresia[]>(this.url + "/buscar/porcli/" + texto);
+  }
+
+  public listDetMembresiaPorEstado(estado:string): Observable<DetalleMembresia[]> {
+    return this.http.get<DetalleMembresia[]>(this.url + "/by/" + estado);
+  }
+
+  public updateDetMembresia(detmem: DetalleMembresia): Observable<any> {
+    return this.http.post(this.url + "/editar", detmem);
   }
 
 }

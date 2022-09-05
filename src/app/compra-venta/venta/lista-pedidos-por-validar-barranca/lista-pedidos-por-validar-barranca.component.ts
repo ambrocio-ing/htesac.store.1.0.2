@@ -97,7 +97,7 @@ export class ListaPedidosPorValidarBarrancaComponent implements OnInit {
        
         const comm = new Comprobante();
         comm.idcomprobante = com.idcomprobante;
-        comm.estado = "Entregada Pendiente";
+        comm.estado = "Entrega pendiente";
         comm.tipoComprobante = com.tipoComprobante;
         comm.idtransaccion = com.idtransaccion;
 

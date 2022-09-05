@@ -69,6 +69,7 @@ import { ListaResumenPedidosHuachoComponent } from './compra-venta/venta/lista-r
 import { ListaResumenPedidosBarrancaComponent } from './compra-venta/venta/lista-resumen-pedidos-barranca/lista-resumen-pedidos-barranca.component';
 import { ListaPedidosPorValidarBarrancaComponent } from './compra-venta/venta/lista-pedidos-por-validar-barranca/lista-pedidos-por-validar-barranca.component';
 import { ListaPedidosPorValidarHuachoComponent } from './compra-venta/venta/lista-pedidos-por-validar-huacho/lista-pedidos-por-validar-huacho.component';
+import { MembresiasComponent } from './clientes/membresias/membresias.component';
 
 @NgModule({
   declarations: [
@@ -132,7 +133,8 @@ import { ListaPedidosPorValidarHuachoComponent } from './compra-venta/venta/list
     ListaResumenPedidosHuachoComponent,
     ListaResumenPedidosBarrancaComponent,
     ListaPedidosPorValidarBarrancaComponent,
-    ListaPedidosPorValidarHuachoComponent 
+    ListaPedidosPorValidarHuachoComponent,
+    MembresiasComponent 
   ],
   imports: [
     BrowserModule,

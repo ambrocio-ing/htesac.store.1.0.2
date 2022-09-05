@@ -1,0 +1,293 @@
+<app-panel></app-panel>
+<div class="container" style="margin-top: 4rem;">
+    <div class="row">
+        <div class="col">            
+            <div class="card">
+                <div class="card-header text-center">
+                    <h5>MEMBRESIA POR CLIENTE</h5>
+                </div>
+                <div class="card-body">
+                    <div style="width: 100%; overflow: auto;">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th colspan="2">Ingrese nombre o ducumento</th>
+                                    <th>
+                                        <input type="text" name="dniOrName" [(ngModel)]="dniOrName" class="form-control">
+                                    </th>
+                                    <th>
+                                        <button (click)="buscar()" type="button" class="btn btn-info">Buscar</button>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="3"></th>
+                                    <th>
+                                        <button (click)="limpiar()" type="button" class="btn btn-danger">Limpiar</button>
+                                    </th>
+                                </tr>
+                                <tr bgcolor="skyblue">                                    
+                                    <th scope="col">Cliente</th>
+                                    <th scope="col">Membresia</th>
+                                    <th scope="col">Detalle</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let dm of bus_detmembresias">                                    
+                                    <td>{{dm.cliente.persona.nombre}} {{dm.cliente.persona.apellidos}}</td>
+                                    <td>{{dm.membresia.titulo}}</td>                                   
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <td *ngIf="dm?.imagen">
+                                                    <img style="width: 50px; height: 50px;" src="{{url_dm}}/{{dm.imagen}}" alt="...">
+                                                </td>
+                                                <td>
+                                                    <span class="text-muted me-2">F.inicio</span><span>{{dm.fechaInicio | date: 'dd/MM/yyyy'}}</span>
+                                                    <br>
+                                                    <span class="text-muted me-2">F.FIN</span><span>{{dm.fechaFin | date: 'dd/MM/yyyy'}}</span>
+                                                    <br>
+                                                    <span class="text-muted me-2">Estado</span><span>{{dm.estado}}</span>                                                    
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <button [disabled]="dm.estado != 'Validación pendiente'" (click)="validar(dm)" type="button" class="btn btn-info form-control">Valido</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <button [disabled]="dm.estado != 'Validación pendiente'" (click)="rechazar(dm)" type="button" class="btn btn-danger form-control">Rechazado</button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="alert alert-danger" role="alert" *ngIf="errMessageBus">
+                            {{errMessageBus}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h5>MEMBRESIAS POR VALIDAR</h5>
+                </div>
+                <div class="card-body">
+                    <div style="width: 100%; overflow: auto;">
+                        <table class="table table-hover table-striped">
+                            <thead>                                
+                                <tr bgcolor="skyblue">                                    
+                                    <th scope="col">Cliente</th>
+                                    <th scope="col">Membresia</th>
+                                    <th scope="col">Detalle</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let dm of val_detmembresias">                                    
+                                    <td>{{dm.cliente.persona.nombre}} {{dm.cliente.persona.apellidos}}</td>
+                                    <td>{{dm.membresia.titulo}}</td>                                   
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <td *ngIf="dm?.imagen">
+                                                    <img style="width: 50px; height: 50px;" src="{{url_dm}}/{{dm.imagen}}" alt="...">
+                                                </td>
+                                                <td>
+                                                    <span class="text-muted me-2">F.inicio</span><span>{{dm.fechaInicio | date: 'dd/MM/yyyy'}}</span>
+                                                    <br>
+                                                    <span class="text-muted me-2">F.FIN</span><span>{{dm.fechaFin | date: 'dd/MM/yyyy'}}</span>
+                                                    <br>
+                                                    <span class="text-muted me-2">Estado</span><span>{{dm.estado}}</span>                                                    
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <button [disabled]="dm.estado != 'Validación pendiente'" (click)="validar(dm)" type="button" class="btn btn-info form-control">Valido</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <button [disabled]="dm.estado != 'Validación pendiente'" (click)="rechazar(dm)" type="button" class="btn btn-danger form-control">Rechazado</button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-center">
+                            <nav>
+                                <ngb-pagination [(page)]="val_page" [pageSize]="val_pageSize", [maxSize]="3"
+                                    [rotate]="true" [collectionSize]="val_detmembresias.length">
+
+                                </ngb-pagination>
+                            </nav>
+                        </div>
+                        <div class="alert alert-danger" role="alert" *ngIf="errMessageVal">
+                            {{errMessageVal}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h5>LISTA COMPRAS VIGENTES</h5>
+                </div>
+                <div class="card-body">
+                    <div style="width: 100%; overflow: auto;">
+                        <table class="table table-hover table-striped">
+                            <thead>                                
+                                <tr bgcolor="skyblue">                                    
+                                    <th scope="col">Cliente</th>
+                                    <th scope="col">Membresia</th>
+                                    <th scope="col">Detalle</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let dm of detmembresias">                                    
+                                    <td>{{dm.cliente.persona.nombre}} {{dm.cliente.persona.apellidos}}</td>
+                                    <td>{{dm.membresia.titulo}}</td>                                   
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <td *ngIf="dm?.imagen">
+                                                    <img style="width: 50px; height: 50px;" src="{{url_dm}}/{{dm.imagen}}" alt="...">
+                                                </td>
+                                                <td>
+                                                    <span class="text-muted me-2">F.inicio</span><span>{{dm.fechaInicio | date: 'dd/MM/yyyy'}}</span>
+                                                    <br>
+                                                    <span class="text-muted me-2">F.FIN</span><span>{{dm.fechaFin | date: 'dd/MM/yyyy'}}</span>
+                                                    <br>
+                                                    <span class="text-muted me-2">Estado</span><span>{{dm.estado}}</span>                                                    
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <button [disabled]="dm.estado != 'Validación pendiente'" (click)="validar(dm)" type="button" class="btn btn-info form-control">Valido</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <button [disabled]="dm.estado != 'Validación pendiente'" (click)="rechazar(dm)" type="button" class="btn btn-danger form-control">Rechazado</button>
+                                                </td>
+                                            </tr>
+                                        </table>                                        
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-center">
+                            <nav>
+                                <ngb-pagination [(page)]="page" [pageSize]="pageSize", [maxSize]="3"
+                                    [rotate]="true" [collectionSize]="detmembresias.length">
+
+                                </ngb-pagination>
+                            </nav>
+                        </div>
+                        <div class="alert alert-danger" role="alert" *ngIf="errMessage">
+                            {{errMessage}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-2 mb-2">
+        <div class="col">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h5>LISTA COMPRAS RECHAZADOS</h5>
+                </div>
+                <div class="card-body">
+                    <div style="width: 100%; overflow: auto;">
+                        <table class="table table-hover table-striped">
+                            <thead>                                
+                                <tr bgcolor="skyblue">                                    
+                                    <th scope="col">Cliente</th>
+                                    <th scope="col">Membresia</th>
+                                    <th scope="col">Detalle</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let dm of re_detmembresias">                                    
+                                    <td>{{dm.cliente.persona.nombre}} {{dm.cliente.persona.apellidos}}</td>
+                                    <td>{{dm.membresia.titulo}}</td>                                   
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <td *ngIf="dm?.imagen">
+                                                    <img style="width: 50px; height: 50px;" src="{{url_dm}}/{{dm.imagen}}" alt="...">
+                                                </td>
+                                                <td>
+                                                    <span class="text-muted me-2">F.inicio</span><span>{{dm.fechaInicio | date: 'dd/MM/yyyy'}}</span>
+                                                    <br>
+                                                    <span class="text-muted me-2">F.FIN</span><span>{{dm.fechaFin | date: 'dd/MM/yyyy'}}</span>
+                                                    <br>
+                                                    <span class="text-muted me-2">Estado</span><span>{{dm.estado}}</span>                                                    
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <button [disabled]="dm.estado != 'Validación pendiente'" (click)="validar(dm)" type="button" class="btn btn-info form-control">Valido</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <button [disabled]="dm.estado != 'Validación pendiente'" (click)="rechazar(dm)" type="button" class="btn btn-danger form-control">Rechazado</button>
+                                                </td>
+                                            </tr>
+                                        </table>                                        
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-center">
+                            <nav>
+                                <ngb-pagination [(page)]="re_page" [pageSize]="re_pageSize", [maxSize]="3"
+                                    [rotate]="true" [collectionSize]="re_detmembresias.length">
+
+                                </ngb-pagination>
+                            </nav>
+                        </div>
+                        <div class="alert alert-danger" role="alert" *ngIf="errMessageRe">
+                            {{errMessageRe}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

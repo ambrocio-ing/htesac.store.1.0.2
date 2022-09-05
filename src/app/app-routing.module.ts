@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { CdeliveryComponent } from './cdelivery/cdelivery.component';
 import { ClientesComponent } from './clientes/clientes.component';
+import { MembresiasComponent } from './clientes/membresias/membresias.component';
 import { EditarIngresoComponent } from './compra-venta/ingreso/editar-ingreso/editar-ingreso.component';
 import { ListaIngresoComponent } from './compra-venta/ingreso/lista-ingreso/lista-ingreso.component';
 import { NuevoIngresoComponent } from './compra-venta/ingreso/nuevo-ingreso/nuevo-ingreso.component';
@@ -67,6 +68,7 @@ const routes: Routes = [
   { path: 'reclamos', component: ListaReclamosComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
   { path: 'delivery', component: CdeliveryComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
   { path: 'libro-re', component: ListaLibroReclamosComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
+  { path: 'mem/comp', component: MembresiasComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
 
   { path: 'venta-busqueda', component: BusquedaVentasComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },
   { path: 'venta-anulado', component: ListaAnuladosComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_USER'] } },  
