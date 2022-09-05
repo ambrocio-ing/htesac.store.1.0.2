@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DetallePago } from 'src/app/modelo/comprobante/detalle-pago';
 import { DetalleMembresia } from 'src/app/modelo/membresia/detalle-membresia';
 import { MembresiaService } from 'src/app/servicio/membresia/membresia.service';
 import { environment } from 'src/environments/environment';
@@ -32,6 +33,9 @@ export class MembresiasComponent implements OnInit {
   page: number = 1;
   pageSize: number = 10;
 
+  mostrarImagen:boolean = false;
+  nombreImagen:string = "";
+
   constructor(private memService: MembresiaService) { }
 
   ngOnInit(): void {
@@ -48,16 +52,18 @@ export class MembresiasComponent implements OnInit {
       this.detmembresias = resp;
       this.errMessage = "";
     }, err => {
+      this.detmembresias.length = 0;
       this.errMessage = "Sin datos que mostrar";
     });
   }
 
   listarEstadoPendiente(): void {
-    const estado = "Validación pendiente";
+    const estado = "Validacion-pendiente";
     this.memService.listDetMembresiaPorEstado(estado).subscribe(resp => {
       this.val_detmembresias = resp;
       this.errMessageVal = "";
     }, err => {
+      this.val_detmembresias.length = 0;
       this.errMessageVal = "Sin datos que mostrar";
     });
   }
@@ -68,6 +74,7 @@ export class MembresiasComponent implements OnInit {
       this.re_detmembresias = resp;
       this.errMessageRe = "";
     }, err => {
+      this.re_detmembresias.length = 0;
       this.errMessageRe = "Sin datos que mostrar";
     });
   }
@@ -83,6 +90,7 @@ export class MembresiasComponent implements OnInit {
       if (res.value) {
 
         let detmem = new DetalleMembresia();
+        detmem.detallePago = new DetallePago();
         detmem.iddetallemembresia = dm.iddetallemembresia;
         detmem.idtransaccion = dm.idtransaccion;
         detmem.estado = "Vigente";
@@ -116,10 +124,47 @@ export class MembresiasComponent implements OnInit {
       if (res.value) {
 
         let detmem = new DetalleMembresia();
+        detmem.detallePago = new DetallePago();
         detmem.iddetallemembresia = dm.iddetallemembresia;
         detmem.idtransaccion = dm.idtransaccion;
         detmem.estado = "Rechazado";
         detmem.detallePago.estadoPago = "Rechazado";
+
+        this.memService.updateDetMembresia(detmem).subscribe(resp => {
+
+          this.ngOnInit();
+
+          Swal.fire({
+            icon: 'success',
+            text: resp.mensaje
+          });
+
+        }, err => {
+          Swal.fire({
+            icon: 'error',
+            text: 'No fue posible actualizar estado'
+          });
+        });
+      }
+    });
+  }
+
+  pendiente(dm:DetalleMembresia): void {
+    Swal.fire({
+      icon: 'question',
+      text: 'Seguro que desea rechazar el estado de la compra???',
+      showCancelButton: true,
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'No'
+    }).then(res => {
+      if (res.value) {
+
+        let detmem = new DetalleMembresia();
+        detmem.detallePago = new DetallePago();
+        detmem.iddetallemembresia = dm.iddetallemembresia;
+        detmem.idtransaccion = dm.idtransaccion;
+        detmem.estado = "Validación pendiente";
+        detmem.detallePago.estadoPago = "Validación pendiente";
 
         this.memService.updateDetMembresia(detmem).subscribe(resp => {
 
@@ -161,6 +206,16 @@ export class MembresiasComponent implements OnInit {
 
   limpiar(): void {
     this.bus_detmembresias.length = 0;
+  }
+
+  verImagen(dm:DetalleMembresia): void {
+    this.mostrarImagen = true;
+    this.nombreImagen = dm.imagen;    
+  }
+
+  cerrarImagen(): void {
+    this.mostrarImagen = false;
+    this.nombreImagen = "";    
   }
 
 }

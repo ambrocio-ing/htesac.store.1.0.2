@@ -12,7 +12,6 @@ import { GpublicidadComponent } from './gpublicidad/gpublicidad.component';
 
 import { GmembresiaComponent } from './gmembresia/gmembresia.component';
 import { ClientesComponent } from './clientes/clientes.component';
-import { ComentariosComponent } from './comentarios/comentarios.component';
 import { LoginComponent } from './login/login.component';
 import { CmarcaComponent } from './cmarca/cmarca.component';
 import { RecuperarCComponent } from './recuperar-c/recuperar-c.component';
@@ -78,7 +77,6 @@ import { MembresiasComponent } from './clientes/membresias/membresias.component'
     GpublicidadComponent,  
     GmembresiaComponent,     
     ClientesComponent,
-    ComentariosComponent,   
     LoginComponent,    
     CmarcaComponent,
     RecuperarCComponent,

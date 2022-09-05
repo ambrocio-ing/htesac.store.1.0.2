@@ -32,6 +32,8 @@ export class ListaPedidosPorValidarHuachoComponent implements OnInit {
   paginator:any = {};
 
   sucursal!:string;
+  mostrarImagen:boolean = false;
+  nombreImagen:string = "";
 
   constructor(private comService: ComprobanteService, public loginService: LoginService) { 
     this.sucursal = "Huacho";
@@ -157,6 +159,16 @@ export class ListaPedidosPorValidarHuachoComponent implements OnInit {
   verDetallePago(com: Comprobante): void {
     this.detallePagol = com.detallePago;
     this.isVisibleDetallePagol = true;
+  }
+
+  verImagen(com:Comprobante): void {
+    this.mostrarImagen = true;
+    this.nombreImagen = com.imagen;    
+  }
+
+  cerrarImagen(): void {
+    this.mostrarImagen = false;
+    this.nombreImagen = "";    
   }
 
 }

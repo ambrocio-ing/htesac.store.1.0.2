@@ -30,13 +30,13 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a routerLink="/pro-lista" class="dropdown-item pestana">Lista</a></li>
-                        <li *ngIf="loginService.isPresentRolname('ROLE_ADMIN')"><a routerLink="/pro-nuevo" class="dropdown-item pestana">Nuevo</a></li>
+                        <li><a routerLink="/pro-nuevo" class="dropdown-item pestana">Nuevo</a></li>
                         <li><a routerLink="/cate" class="dropdown-item pestana">Categorias</a></li>
                         <li><a routerLink="/tipo" class="dropdown-item pestana">Tipos</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li *ngIf="loginService.isPresentRolname('ROLE_ADMIN')"><a routerLink="/ingre-nuevo" class="dropdown-item pestana">Nuevo ingreso</a></li>
+                        <li><a routerLink="/ingre-nuevo" class="dropdown-item pestana">Nuevo ingreso</a></li>
                         <li><a routerLink="/ingre-lista" class="dropdown-item pestana">Lista de ingresos</a></li>
                     </ul>
                 </li>

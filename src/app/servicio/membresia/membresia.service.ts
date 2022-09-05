@@ -85,15 +85,15 @@ export class MembresiaService {
 
   //metodo para detalle de membresia
   public listDetMembresiaPorCliente(texto:string): Observable<DetalleMembresia[]> {
-    return this.http.get<DetalleMembresia[]>(this.url + "/buscar/porcli/" + texto);
+    return this.http.get<DetalleMembresia[]>(this.url_det + "/buscar/porcli/" + texto);
   }
 
   public listDetMembresiaPorEstado(estado:string): Observable<DetalleMembresia[]> {
-    return this.http.get<DetalleMembresia[]>(this.url + "/by/" + estado);
+    return this.http.get<DetalleMembresia[]>(this.url_det + "/by/" + estado);
   }
 
   public updateDetMembresia(detmem: DetalleMembresia): Observable<any> {
-    return this.http.post(this.url + "/editar", detmem);
+    return this.http.post(this.url_det + "/editar", detmem);
   }
 
 }
