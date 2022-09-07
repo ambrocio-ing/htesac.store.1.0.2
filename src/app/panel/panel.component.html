@@ -7,14 +7,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item dropdown">
+                <li *ngIf="loginService.isPresentRolname('ROLE_ADMIN')" class="nav-item dropdown">
                     <a class="nav-link active dropdown-toggle" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Usuarios
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a routerLink="/cli-lista" class="dropdown-item pestana">Cliente</a></li>
-                        <li *ngIf="loginService.isPresentRolname('ROLE_ADMIN')"><a routerLink="/per" class="dropdown-item pestana">Personal</a></li>
+                        <li ><a routerLink="/per" class="dropdown-item pestana">Personal</a></li>
                         <li><a routerLink="/provee-lista" class="dropdown-item pestana">Proveedor</a></li>
                         <li>
                             <hr class="dropdown-divider">
@@ -29,18 +29,18 @@
                         Productos
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a routerLink="/pro-lista" class="dropdown-item pestana">Lista</a></li>
-                        <li><a routerLink="/pro-nuevo" class="dropdown-item pestana">Nuevo</a></li>
                         <li><a routerLink="/cate" class="dropdown-item pestana">Categorias</a></li>
                         <li><a routerLink="/tipo" class="dropdown-item pestana">Tipos</a></li>
+                        <li><a routerLink="/pro-nuevo" class="dropdown-item pestana">Nuevo Producto</a></li>
+                        <li *ngIf="loginService.isPresentRolname('ROLE_ADMIN')"><a routerLink="/pro-lista" class="dropdown-item pestana">Lista</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
                         <li><a routerLink="/ingre-nuevo" class="dropdown-item pestana">Nuevo ingreso</a></li>
-                        <li><a routerLink="/ingre-lista" class="dropdown-item pestana">Lista de ingresos</a></li>
+                        <li *ngIf="loginService.isPresentRolname('ROLE_ADMIN')"><a routerLink="/ingre-lista" class="dropdown-item pestana">Lista de ingresos</a></li>
                     </ul>
                 </li>
-                <li class="nav-item dropdown">
+                <li *ngIf="loginService.isPresentRolname('ROLE_ADMIN')" class="nav-item dropdown">
                     <a class="nav-link active dropdown-toggle" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Ventas
@@ -64,7 +64,7 @@
                         <li><a routerLink="/venta-busqueda" class="dropdown-item pestana">Busquedas</a></li>
                     </ul>
                 </li>                
-                <li class="nav-item dropdown">
+                <li *ngIf="loginService.isPresentRolname('ROLE_ADMIN')" class="nav-item dropdown">
                     <a class="nav-link active dropdown-toggle" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Compras
@@ -78,7 +78,7 @@
                         <li><a routerLink="/suje"class="dropdown-item pestana">Sugerencias</a></li>
                     </ul>
                 </li>               
-                <li class="nav-item dropdown">
+                <li *ngIf="loginService.isPresentRolname('ROLE_ADMIN')" class="nav-item dropdown">
                     <a class="nav-link active dropdown-toggle" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Otros

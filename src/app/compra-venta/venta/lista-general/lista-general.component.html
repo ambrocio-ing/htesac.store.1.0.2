@@ -63,7 +63,7 @@
                                         <a (click)="verDetallePago(com)" class="ver-todo ms-2">Ver detale pago</a>
                                     </td>
                                     <td>
-                                        <div class="d-flex justify-content-center" *ngIf="loginService.isPresentRolname('ROLE_ADMIN')">
+                                        <div class="d-flex justify-content-center" *ngIf="loginService.isPresentRolname('ROLE_ADMIN') && com.estado != 'Anulado'">
                                             <button (click)="changeStatusEntregado(com)"
                                                 *ngIf="!preloaderEntregando || editando != com.idcomprobante"
                                                 class="btn btn-info me-2">
