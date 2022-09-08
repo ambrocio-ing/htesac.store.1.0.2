@@ -1,20 +1,26 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Color } from './color';
+import { Variedad } from './variedad';
 
 @Pipe({
   name: 'pvariedad'
 })
 export class PvariedadPipe implements PipeTransform {
 
-  transform(colores:Color[]): string {
+  transform(variedades:Variedad[]): string {
     
-    let texto_co:string = "";    
+    let texto:string = "";
 
-    colores.forEach(co => {
-      texto_co += co.nombreColor + ":" + co.cantidadColor + ", ";
-    });   
-    
-    return texto_co;;
+    variedades.forEach(va => {
+      let color_texto = "";
+      va.colores.forEach(co => {
+        color_texto += " => " + co.nombreColor + ":" + co.cantidadColor
+      });
+
+      texto += va.nombreTalla + ":" + va.cantidadTalla + color_texto + " | ";
+    });
+
+    return texto;
   }
 
 }

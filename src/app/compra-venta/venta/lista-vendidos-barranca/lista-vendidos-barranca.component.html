@@ -107,17 +107,18 @@
                                 </tr>
                                 <tr *ngFor="let dc of com.detalleComprobantes">
                                     <td>
-                                        <img style="width: 55px; height: 55px;"
-                                            src="{{url_backend}}/{{dc.detalleIngreso.producto.productoImagenes[0].imagen}}"
+                                        <img style="width: 55px; height: 55px;" *ngIf="dc?.variedades"
+                                            src="{{url_backend}}/{{dc.variedades[0].colores[0].nombreImagen}}" 
+                                            alt="...">
+                                        <img style="width: 55px; height: 55px;" *ngIf="!dc?.variedades"
+                                            src="{{url_backend}}/{{dc.detalleIngreso.producto.productoImagenes[0].imagen}}" 
                                             alt="...">
                                     </td>
-                                    <td colspan="2">
-                                        {{dc.detalleIngreso.producto.nombre}}
-                                    </td>
-                                    <td colspan="2">
-                                        <span *ngIf="dc?.variedad" class="text-muted me-2">Talla:</span> {{dc.variedadColor}}
-                                        
-                                    </td>
+                                    <td colspan="4">
+                                        <span>{{dc.detalleIngreso.producto.nombre}}</span>
+                                        <br *ngIf="dc?.variedades">
+                                        <span *ngIf="dc?.variedades">{{dc.variedades | pvariedad}}</span>                                        
+                                    </td>  
                                     <td>
                                         <span class="text-muted me-2">Cantidad:</span> {{dc.cantidad}}
                                         <br>

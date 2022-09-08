@@ -53,7 +53,7 @@
                                     <th scope="col">Precios</th>
                                     <th scope="col">Stock</th>
                                     <th scope="col">Detalle</th>
-                                    <th scope="col">Fechas</th>                                    
+                                    <th scope="col">Fechas</th>
                                     <th scope="col">Acción</th>
                                 </tr>
                             </thead>
@@ -105,9 +105,11 @@
                                 <tr *ngIf="di.variedades.length > 0">
                                     <td colspan="6">
                                         <span class="text-muted me-2">Tallas:</span>
-                                        <span *ngFor="let variedad of di.variedades" class="me-2">
-                                            {{variedad.nombreTalla}}:{{variedad.cantidadTalla}} -> {{variedad.colores | pvariedad}}
-                                        </span>
+                                        <span>{{di.variedades | pvariedad}}</span>
+                                        <!-- <span *ngFor="let variedad of di.variedades" class="me-2">
+                                            {{variedad.nombreTalla}}:{{variedad.cantidadTalla}} -> {{variedad.colores |
+                                            pvariedad}}
+                                        </span> -->
                                     </td>
                                 </tr>
                             </tbody>
@@ -115,7 +117,7 @@
                         <div class="alert alert-danger" role="alert" *ngIf="errMessageSearch">
                             <span>{{errMessageSearch}}</span>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -147,7 +149,7 @@
                                         {{di.precioVentaAnterior}}
                                         <br>
                                         <span style="color: blue;">Precio Venta: </span>
-                                        {{di.precioVenta}}                                        
+                                        {{di.precioVenta}}
                                     </td>
                                     <td>
                                         <span style="color: blue;">Porcentaje descuento: </span>
@@ -164,8 +166,8 @@
                                         {{di.sucursal}}
                                         <br>
                                         <span style="color: blue;">Estado: </span>
-                                        {{di.estado}}                                        
-                                        
+                                        {{di.estado}}
+
                                     </td>
                                     <td>
                                         <span style="color: blue;">Fecha producción: </span>
@@ -182,16 +184,17 @@
                                 <tr *ngIf="di.variedades.length > 0">
                                     <td colspan="6">
                                         <span class="text-muted me-2">Tallas:</span>
-                                        <span *ngFor="let variedad of di.variedades" class="me-2">
+                                        <span>{{di.variedades | pvariedad}}</span>
+                                        <!-- <span *ngFor="let variedad of di.variedades" class="me-2">
                                             {{variedad.nombreTalla}}:{{variedad.cantidadTalla}} -> {{variedad.colores | pvariedad}}
-                                        </span>
+                                        </span> -->
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                         <div class="alert alert-danger" role="alert" *ngIf="errMessageList">
                             <span>{{errMessageList}}</span>
-                        </div>                        
+                        </div>
                         <div class="wrapper" *ngIf="detalleIngresos.length > 0">
                             <app-paginador-lista [paginador]="paginator" [tipo]="tipo"></app-paginador-lista>
                         </div>

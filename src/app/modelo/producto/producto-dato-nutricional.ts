@@ -1,14 +1,14 @@
 export class ProductoDatoNutricional {
 
     iddnutricional!:number;
-    calorias!: number;
-    grasa!: number;
-    colesterol!: number;
-    sodio!: number;
-    carbohidrato!: number;
-    proteina!: number;
+    calorias!: string;
+    grasa!: string;
+    colesterol!: string;
+    sodio!: string;
+    carbohidrato!: string;
+    proteina!: string;
     vitamina!: string;
-    calcio!: number;
-    hierro!: number;
+    calcio!: string;
+    hierro!: string;
     minerales!:string;
 }
