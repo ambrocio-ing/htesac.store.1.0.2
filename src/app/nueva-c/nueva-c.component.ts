@@ -13,6 +13,7 @@ export class NuevaCComponent implements OnInit {
   dto:ChangePasswordDto = new ChangePasswordDto();
   successfulMessage!:string;
   errMessage!:string;
+  preloader:boolean = false;
 
   constructor(private router: Router, 
     private activatedRoute:ActivatedRoute,
@@ -32,12 +33,14 @@ export class NuevaCComponent implements OnInit {
   confirmar() : void {
     if(this.dto.password != null && this.dto.confirmPassword != null 
       && this.dto.tokenPassword != null){
-
+      this.preloader = true;
       this.loginService.changePassword(this.dto).subscribe(resp => {
+        this.preloader = false;
         this.successfulMessage = resp.mensaje;
         this.errMessage = "";
         this.dto = new ChangePasswordDto();
       }, err => {
+        this.preloader = false;
         this.successfulMessage = "";
         if(err.status == 404 || err.status == 500){
           this.errMessage = err.error.mensaje

@@ -13,6 +13,8 @@ export class RecuperarCComponent implements OnInit {
   successfulMessageMail!:string;
   errMessageMail!:string;
 
+  preloader:boolean = false;
+
   constructor(private loginService:LoginService) { }
 
   ngOnInit(): void {
@@ -21,12 +23,15 @@ export class RecuperarCComponent implements OnInit {
 
   enviar() : void {
     if(this.dto.mailTo != null){
+      this.preloader = true;
       this.dto.typeUser = "Admin";
       this.loginService.generarPassword(this.dto).subscribe(resp => {
+        this.preloader = false;
         this.successfulMessageMail = resp.mensaje;
         this.dto = new EmailValuesDto();
         this.errMessageMail = "";
       }, err => {
+        this.preloader = false;
         this.successfulMessageMail = "";
         if(err.status == 404 || err.status == 500){
           this.errMessageMail = err.error.mensaje;
