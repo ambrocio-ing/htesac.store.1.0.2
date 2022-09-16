@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/hte_ecommerce_admin'),
+      dir: require('path').join(__dirname, './coverage/htesac_store'),
       subdir: '.',
       reporters: [
         { type: 'html' },

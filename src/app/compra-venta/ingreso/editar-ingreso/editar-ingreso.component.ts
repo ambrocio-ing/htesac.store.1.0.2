@@ -45,6 +45,7 @@ export class EditarIngresoComponent implements OnInit {
     this.ingreso.personal.persona = new Persona();
 
     this.detalleIngreso.producto = new Producto();
+    
   }
 
   ngOnInit(): void {
@@ -103,10 +104,10 @@ export class EditarIngresoComponent implements OnInit {
 
   agregarDI(): void {    
     if (this.isValidDetalleIngreso().length == 0) {
-      const element = this.ingreso.detalleIngresos.find(di => di.producto.idproducto == this.detalleIngreso.producto.idproducto);
+      const element = this.ingreso.detalleIngresos.find(di => di.iddetalleingreso == this.detalleIngreso.iddetalleingreso);
       if (element != undefined && element != null) {
         this.ingreso.detalleIngresos.forEach(di => {
-          if(di.producto.idproducto == this.detalleIngreso.producto.idproducto){
+          if(di.iddetalleingreso == this.detalleIngreso.iddetalleingreso){
             di.fechaProduccion = this.detalleIngreso.fechaProduccion;
             di.fechaVencimiento = this.detalleIngreso.fechaVencimiento;
             di.porcentajeDescuento = this.detalleIngreso.porcentajeDescuento;
@@ -115,6 +116,8 @@ export class EditarIngresoComponent implements OnInit {
             di.precioVentaAnterior = this.detalleIngreso.precioVentaAnterior;
             di.stockActual = this.detalleIngreso.stockActual;
             di.stockInicial = this.detalleIngreso.stockInicial;
+            di.estado = this.detalleIngreso.estado;
+            di.ventaPorGramo = this.detalleIngreso.ventaPorGramo;
             
             if(di.producto.productoVestimenta != null){
               di.variedades = this.detalleIngreso.variedades
@@ -130,7 +133,7 @@ export class EditarIngresoComponent implements OnInit {
         Swal.fire({
           icon: 'info',
           title: 'Acción no reconocido',
-          text: 'No fue posible actualizar detalle de ingreso'
+          text: 'No se encontro coincidencias en el lista de ingresos'
         });
       }
     }
@@ -300,6 +303,7 @@ export class EditarIngresoComponent implements OnInit {
   obtenerDI(di: DetalleIngreso): void {
     this.detalleIngreso.iddetalleingreso = di.iddetalleingreso;
     this.detalleIngreso.estado = di.estado;
+    this.detalleIngreso.ventaPorGramo = di.ventaPorGramo;
     this.detalleIngreso.fechaProduccion = di.fechaProduccion;
     this.detalleIngreso.fechaVencimiento = di.fechaVencimiento;
     this.detalleIngreso.ingresoId = di.ingresoId;
@@ -312,7 +316,10 @@ export class EditarIngresoComponent implements OnInit {
     this.detalleIngreso.stockInicial = di.stockInicial;
     this.detalleIngreso.sucursal = di.sucursal;
 
-    di.variedades.forEach(va => this.detalleIngreso.variedades.push(va));
+    if(di.producto.productoVestimenta != null){
+      di.variedades.forEach(va => this.detalleIngreso.variedades.push(va));
+    }
+    
   }
 
   //variedad
@@ -525,6 +532,54 @@ export class EditarIngresoComponent implements OnInit {
     this.color.nombreColor = color.nombreColor;
     this.color.cantidadColor = color.cantidadColor;
     this.color.variedadId = color.variedadId;
+  }
+
+  activarVentaPorGramo(event:any): void {
+    console.log("**CHECK****", event.target.checked);
+    
+    const estado:boolean = event.target.checked;
+    if(estado){
+      this.detalleIngreso.ventaPorGramo = true;
+    }
+    else{
+      this.detalleIngreso.ventaPorGramo = false;
+    }
+
+    console.log("**Venta pg****", this.detalleIngreso.ventaPorGramo);
+    
+  }
+
+  stockCero(event:any): void {
+
+    const estado = event.target.checked;
+    if(!estado){      
+      this.detalleIngreso.estado = true;
+      this.ingreso.detalleIngresos.forEach(di => {
+        if(di.iddetalleingreso == this.detalleIngreso.iddetalleingreso){
+          this.detalleIngreso.stockActual = di.stockActual;
+          this.detalleIngreso.stockInicial = di.stockInicial;
+        }
+      });
+    }
+    else{
+      Swal.fire({
+        icon:'question',
+        text:'Seguro que desea poner stocks en cero y estado del ingreso en falso?',
+        showCancelButton: true,
+        confirmButtonText: 'Sí',
+        cancelButtonText: 'No'
+      }).then(res => {
+        if(res.value){
+          this.detalleIngreso.stockActual = 0;
+          this.detalleIngreso.stockInicial = 0;
+          this.detalleIngreso.estado = false;
+        }
+        else{
+          event.target.checked = false;
+        }
+      });
+    }
+    
   }
 
 }

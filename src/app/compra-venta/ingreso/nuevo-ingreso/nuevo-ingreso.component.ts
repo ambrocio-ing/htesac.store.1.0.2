@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { DetalleIngreso } from 'src/app/modelo/detalle-ingreso/detalleingreso';
 import { Ingreso } from 'src/app/modelo/ingreso/ingreso';
 import { Personal } from 'src/app/modelo/personal/personal';
@@ -16,6 +16,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./nuevo-ingreso.component.css']
 })
 export class NuevoIngresoComponent implements OnInit {
+
+  @ViewChild("asVentaPG") asVentaPorGramo!: ElementRef;
 
   url_img:string = environment.urlBackend + "/mostrar/pto/imagen";
 
@@ -36,18 +38,20 @@ export class NuevoIngresoComponent implements OnInit {
   sucursal!:string;
 
   constructor(private productoService: ProductoService,
-    private ingresoService: IngresoService) {
+    private ingresoService: IngresoService, private renderer:Renderer2) {
 
     this.ingreso.personal = new Personal();
     this.ingreso.igv = 0.18;
 
-    this.detalleIngreso.producto = new Producto();
+    this.detalleIngreso.producto = new Producto();    
     //this.detalleIngreso.producto.productoVestimenta = new ProductoVestimenta();
     this.color.cantidadColor = 1;
 
   }
 
   ngOnInit(): void {
+
+    this.detalleIngreso.ventaPorGramo = false;
 
     this.productoService.cbProducto.subscribe(resp => {
       this.detalleIngreso.producto = resp;
@@ -85,6 +89,10 @@ export class NuevoIngresoComponent implements OnInit {
       mensajes.push("Producto es obligatorio");
     }    
 
+    if(this.detalleIngreso.ventaPorGramo == null){
+      mensajes.push("La venta por gramo debe ser verdadero o falso");
+    }
+
     return mensajes;
   }
 
@@ -114,6 +122,10 @@ export class NuevoIngresoComponent implements OnInit {
         this.ingreso.detalleIngresos.push(this.detalleIngreso);
         this.detalleIngreso = new DetalleIngreso();
         this.detalleIngreso.producto = new Producto();
+        this.detalleIngreso.ventaPorGramo = false;
+
+        const vpg = this.asVentaPorGramo.nativeElement;
+        this.renderer.setAttribute(vpg, "checked", "false");
       }
       else {
         Swal.fire({
@@ -136,6 +148,10 @@ export class NuevoIngresoComponent implements OnInit {
   cancelarDI(): void {
     this.detalleIngreso = new DetalleIngreso();
     this.detalleIngreso.producto = new Producto();
+    this.detalleIngreso.ventaPorGramo = false;
+
+    const vpg = this.asVentaPorGramo.nativeElement;
+    this.renderer.setAttribute(vpg, "checked", "false");
   }
 
   eliminarDI(di: DetalleIngreso): void {
@@ -404,6 +420,18 @@ export class NuevoIngresoComponent implements OnInit {
     this.color.nombreColor = color.nombreColor;
     this.color.cantidadColor = color.cantidadColor;
     this.color.variedadId = color.variedadId;
+  }
+
+  activarVentaPorGramo(event:any): void {
+    console.log("**CHECK****", event.target.checked);
+    const estado:boolean = event.target.checked;
+    if(estado){
+      this.detalleIngreso.ventaPorGramo = true;
+    }
+    else{
+      this.detalleIngreso.ventaPorGramo = false;
+    }
+    
   }
 
 }

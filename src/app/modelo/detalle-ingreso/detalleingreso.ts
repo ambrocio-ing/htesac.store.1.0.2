@@ -13,6 +13,7 @@ export class DetalleIngreso {
     fechaProduccion!: string;
     fechaVencimiento!: string;
     estado!: boolean;
+    ventaPorGramo!:boolean;
     sucursal!:string;
     createAt!:string;
     producto!: Producto;

@@ -90,7 +90,7 @@
                                     <fieldset class="marco">
                                         <legend style="font-weight: bold; font-size: 15px;">Detalle de ingreso</legend>
                                         <div class="row">
-                                            <div class="col-sm">
+                                            <div class="col-sm-12 col-md-4">
                                                 <div class="form-group mt-2">
                                                     <label for="">Seleccione producto</label>
                                                     <div class="view-grid-one">
@@ -184,7 +184,7 @@
                                                 </div>
                                             </div>
     
-                                            <div class="col-sm">
+                                            <div class="col-sm-12 col-md-4">
                                                 <div class="form-group view-grid mt-2">
                                                     <div>
                                                         <label for="precioVentaAnterior">P.V anterior</label>
@@ -202,28 +202,46 @@
                                                 <div class="form-group view-grid mt-2">
                                                     <div>
                                                         <label for="stockInicial">Stock Inicial</label>
-                                                        <input type="number" name="stockInicial" disabled
+                                                        <input type="number" name="stockInicial"
                                                             [(ngModel)]="detalleIngreso.stockInicial" class="form-control">
                                                     </div>
                                                     <div>
                                                         <label for="stockActual">Stock Actual</label>
                                                         <input type="number" name="stockActual"
                                                             [(ngModel)]="detalleIngreso.stockActual" 
-                                                            class="form-control">
+                                                            class="form-control" disabled>
                                                     </div>
                                                 </div>
-                                                <div class="form-group mt-2">
-                                                    <label for="sucursal">Sucursal</label>
-                                                    <select name="sucursal" [(ngModel)]="detalleIngreso.sucursal" 
-                                                        disabled="true" class="form-control">
-                                                        <option value="">--Seleccione--</option>
-                                                        <option value="Huaura">Huaura</option>
-                                                        <option value="Barranca">Barranca</option>
-                                                    </select>     
+                                                <div class="form-group view-grid mt-2">
+                                                    <div class="pt-2">    
+                                                        <label for="">
+                                                            <input [disabled]="detalleIngreso.producto.productoVestimenta != null" type="checkbox" 
+                                                                #asVentaPG (change)="activarVentaPorGramo($event)"
+                                                                [checked]="detalleIngreso.ventaPorGramo"> Ventas pequeñas
+                                                        </label> 
+                                                        <br>
+                                                        <label for="">
+                                                            <input type="checkbox" #asVentaPG (change)="stockCero($event)"> Stock en cero
+                                                        </label> 
+                                                        <br>
+                                                        <label for="">
+                                                            <input type="checkbox" disabled [checked]="detalleIngreso.estado"> Estado: <span style="color:blue;">{{detalleIngreso.estado}}</span> 
+                                                        </label> 
+                                                    </div>
+                                                    <div>
+                                                        <label for="sucursal">Sucursal</label>
+                                                        <select name="sucursal" [(ngModel)]="detalleIngreso.sucursal" 
+                                                            disabled="true" class="form-control">
+                                                            <option value="">--Seleccione--</option>
+                                                            <option value="Huacho">Huacho</option>
+                                                            <option value="Barranca">Barranca</option>
+                                                        </select>  
+                                                    </div>
+                                                       
                                                 </div>
                                             </div>
     
-                                            <div class="col-sm">
+                                            <div class="col-sm-12 col-md-4">
                                                 <div class="form-group view-grid mt-2">
                                                     <div>
                                                         <label for="fechaProduccion">F. Producción</label>
@@ -280,9 +298,10 @@
                                                                 <th scope="col">PV</th>
                                                                 <th scope="col">SI</th>
                                                                 <th scope="col">SA</th>
-                                                                <th scope="col">FP</th>
-                                                                <th scope="col">FV</th>                                                                
-                                                                <th style="width: 50px;" scope="col">Acción</th>
+                                                                <th scope="col">Fechas</th>
+                                                                <th scope="col">Estado</th>     
+                                                                <th scope="col">VPG</th>                                                             
+                                                                <th style="width: 80px;" scope="col">Acción</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -294,8 +313,13 @@
                                                                 <td>{{di.precioVenta}}</td>
                                                                 <td>{{di.stockInicial}}</td>
                                                                 <td>{{di.stockActual}}</td>
-                                                                <td>{{di.fechaProduccion}}</td>
-                                                                <td>{{di.fechaVencimiento}}</td>                                                                
+                                                                <td>
+                                                                    FP:{{di.fechaProduccion}}
+                                                                    <br>
+                                                                    FV:{{di.fechaVencimiento}}
+                                                                </td>
+                                                                <td>{{di.estado}}</td>  
+                                                                <td>{{di.ventaPorGramo}}</td>                                                              
                                                                 <td class="view-grid-buttons">
                                                                     <a (click)="verMas(di)" style="cursor: pointer;">
                                                                         <i class="bi bi-binoculars-fill" style="font-size: 25px; color: lightseagreen;"></i>

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "hte_ecommerce_admin": {
+    "htesac_store": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/hte_ecommerce_admin",
+            "outputPath": "dist/htesac_store",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -76,10 +76,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "hte_ecommerce_admin:build:production"
+              "browserTarget": "htesac_store:build:production"
             },
             "development": {
-              "browserTarget": "hte_ecommerce_admin:build:development"
+              "browserTarget": "htesac_store:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -87,7 +87,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "hte_ecommerce_admin:build"
+            "browserTarget": "htesac_store:build"
           }
         },
         "test": {

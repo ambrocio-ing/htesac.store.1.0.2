@@ -10,8 +10,8 @@
     </div>
 </div>
 
-<app-vermas-producto *ngIf="mproducto?.idproducto" [isVisibleModal]="verMasVisible"
-    [producto]="mproducto" (cerrarModal)="verMasVisible = $event">
+<app-vermas-producto *ngIf="mproducto?.idproducto" [isVisibleModal]="verMasVisible" [producto]="mproducto"
+    (cerrarModal)="verMasVisible = $event">
 </app-vermas-producto>
 
 <div class="container p-1" style="margin-top: 4rem;">
@@ -79,9 +79,9 @@
                                                 <option value="">--Seleccione--</option>
                                                 <option value="Huacho">Huacho</option>
                                                 <option value="Barranca">Barranca</option>
-                                            </select>     
+                                            </select>
                                         </div>
-                                    </div>                                   
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -89,7 +89,7 @@
                                     <fieldset class="marco">
                                         <legend style="font-size: 15px; font-weight: bold;">Detalle de ingreso</legend>
                                         <div class="row">
-                                            <div class="col-sm">
+                                            <div class="col-sm-12 col-md-4">
                                                 <div class="form-group mt-2">
                                                     <label for="">Seleccione producto</label>
                                                     <div class="view-grid-one">
@@ -112,15 +112,16 @@
                                                     <hr>
                                                     <div class="form-group">
                                                         <label for="nombreImagen">Imagen</label>
-                                                        <select name="nombreImagen" [(ngModel)]="color.nombreImagen" 
+                                                        <select name="nombreImagen" [(ngModel)]="color.nombreImagen"
                                                             class="form-control">
                                                             <option value="">--</option>
-                                                            <option *ngFor="let pimg of detalleIngreso.producto.productoImagenes" 
+                                                            <option
+                                                                *ngFor="let pimg of detalleIngreso.producto.productoImagenes"
                                                                 value="{{pimg.imagen}}">
                                                                 {{pimg.imagen}}
                                                             </option>
                                                         </select>
-                                                    </div>                          
+                                                    </div>
                                                     <div class="grid-custom-variedad">
                                                         <div>
                                                             <label for="nombreColor">Color</label>
@@ -133,17 +134,22 @@
                                                                 [(ngModel)]="color.cantidadColor" class="form-control">
                                                         </div>
                                                         <div class="pt-4">
-                                                            <button (click)="addColor()" type="button" class="btn btn-info p-0">
+                                                            <button (click)="addColor()" type="button"
+                                                                class="btn btn-info p-0">
                                                                 <i class="bi bi-file-plus"
                                                                     style="color: white; font-size: 23px;"></i>
                                                             </button>
                                                         </div>
                                                     </div>
                                                     <div class="mt-2">
-                                                        <span class="display-color me-2" *ngFor="let color of variedad.colores">
-                                                            {{color.nombreColor}}:{{color.cantidadColor}} 
-                                                            <i (click)="eliminarColor(color)" class="bi bi-x-circle-fill custom ms-2"></i>
-                                                            <i (click)="editarColor(color)" class="bi bi-pencil-square ms-2" style="color: rgb(32, 47, 178);"></i>
+                                                        <span class="display-color me-2"
+                                                            *ngFor="let color of variedad.colores">
+                                                            {{color.nombreColor}}:{{color.cantidadColor}}
+                                                            <i (click)="eliminarColor(color)"
+                                                                class="bi bi-x-circle-fill custom ms-2"></i>
+                                                            <i (click)="editarColor(color)"
+                                                                class="bi bi-pencil-square ms-2"
+                                                                style="color: rgb(32, 47, 178);"></i>
                                                         </span>
                                                     </div>
                                                     <div class="grid-custom-variedad">
@@ -154,8 +160,9 @@
                                                         </div>
                                                         <div>
                                                             <label for="cantidadTalla">Cant#</label>
-                                                            <input type="number" min="1" name="cantidadTalla" disabled="true"
-                                                                [(ngModel)]="variedad.cantidadTalla" class="form-control">
+                                                            <input type="number" min="1" name="cantidadTalla"
+                                                                disabled="true" [(ngModel)]="variedad.cantidadTalla"
+                                                                class="form-control">
                                                         </div>
                                                         <div class="pt-4">
                                                             <button (click)="addVariedad()" type="button"
@@ -165,27 +172,31 @@
                                                             </button>
                                                         </div>
                                                     </div>
-                                                    
-                                                    <div class="rounded bg-success mt-2 p-2">                                                
+
+                                                    <div class="rounded bg-success mt-2 p-2">
                                                         <div class="bg-custom me-2 mt-2"
                                                             *ngFor="let va of detalleIngreso.variedades">
-        
-                                                            <span style="color: black;">{{va.nombreTalla}}:{{va.cantidadTalla}}</span>
+
+                                                            <span
+                                                                style="color: black;">{{va.nombreTalla}}:{{va.cantidadTalla}}</span>
                                                             <i (click)="eliminarVariedad(va)"
                                                                 class="bi bi-x-circle-fill custom ms-2"></i>
-                                                            <i (click)="editarVariedad(va)" class="bi bi-pencil-square ms-2" style="color: rgb(32, 47, 178);"></i>
+                                                            <i (click)="editarVariedad(va)"
+                                                                class="bi bi-pencil-square ms-2"
+                                                                style="color: rgb(32, 47, 178);"></i>
                                                             <span class="text-muted ms-2">Colores:</span>
                                                             <span class="ms-2" *ngFor="let color of va.colores">
-                                                                <span style="color: black;">{{color.nombreColor}}:{{color.cantidadColor}}</span>
+                                                                <span
+                                                                    style="color: black;">{{color.nombreColor}}:{{color.cantidadColor}}</span>
                                                                 <i (click)="eliminarColorEnVariedad(color, va)"
                                                                     class="bi bi-x-circle-fill custom ms-2"></i>
                                                             </span>
                                                         </div>
                                                     </div>
-                                                </div>                                                
+                                                </div>
                                             </div>
 
-                                            <div class="col-sm">
+                                            <div class="col-sm-12 col-md-4">
                                                 <div class="form-group view-grid mt-2">
                                                     <div>
                                                         <label for="precioVentaAnterior">P.V anterior</label>
@@ -213,10 +224,15 @@
                                                             [(ngModel)]="detalleIngreso.stockActual" disabled
                                                             class="form-control">
                                                     </div>
-                                                </div>                                               
+                                                </div>
+                                                <div class="form-group mt-4">    
+                                                    <label for="">
+                                                        <input [disabled]="detalleIngreso.producto.productoVestimenta != null" type="checkbox" #asVentaPG (change)="activarVentaPorGramo($event)"> Ventas pequeñas
+                                                    </label> 
+                                                </div>
                                             </div>
 
-                                            <div class="col-sm">
+                                            <div class="col-sm-12 col-md-4">
                                                 <div class="form-group view-grid mt-2">
                                                     <div>
                                                         <label for="fechaProduccion">F. Producción</label>
@@ -276,9 +292,9 @@
                                                                 <th scope="col">SI</th>
                                                                 <th scope="col">SA</th>
                                                                 <th scope="col">FP</th>
-                                                                <th scope="col">FV</th>      
-                                                                <th scope="col">Sucursal</th>                                                          
-                                                                <th style="width: 50px;" scope="col">Acción</th>
+                                                                <th scope="col">FV</th>
+                                                                <th scope="col">Sucursal</th>
+                                                                <th style="width: 80px;" scope="col">Acción</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -291,15 +307,17 @@
                                                                 <td>{{di.stockInicial}}</td>
                                                                 <td>{{di.stockActual}}</td>
                                                                 <td>{{di.fechaProduccion}}</td>
-                                                                <td>{{di.fechaVencimiento}}</td>        
-                                                                <td>{{di.sucursal}}</td>                                                        
+                                                                <td>{{di.fechaVencimiento}}</td>
+                                                                <td>{{di.sucursal}}</td>
                                                                 <td>
                                                                     <a (click)="verMas(di)" style="cursor: pointer;">
-                                                                        <i class="bi bi-binoculars-fill" style="font-size: 25px; color: lightseagreen;"></i>
+                                                                        <i class="bi bi-binoculars-fill"
+                                                                            style="font-size: 25px; color: lightseagreen;"></i>
                                                                     </a>
                                                                     <a (click)="eliminarDI(di)"
-                                                                        style="cursor: pointer; margin-left: 10px;">
-                                                                        <i class="bi bi-trash" style="font-size: 25px; color: red;"></i>
+                                                                        style="cursor: pointer; margin-left: 5px;">
+                                                                        <i class="bi bi-trash"
+                                                                            style="font-size: 25px; color: red;"></i>
                                                                     </a>
                                                                 </td>
                                                             </tr>
