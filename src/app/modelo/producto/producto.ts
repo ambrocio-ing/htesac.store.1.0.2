@@ -9,12 +9,12 @@ export class Producto {
     idproducto!: number;
     codigo!: string;
     nombre!: string;
-    puntos!:number;
-    nventas!:number;
-    nestrellas!:number;
-    descripcion!: string;    
-    marca!:string;
-    tipo!: Tipo;   
+    puntos!: number;
+    nventas!: number;
+    nestrellas!: number;
+    descripcion!: string;
+    marca!: string;
+    tipo!: Tipo;
     productoImagenes: ProductoImagen[] = [];
     productoDatoNutricional!: ProductoDatoNutricional;
     productoVestimenta!: ProductoVestimenta;
