@@ -15,16 +15,16 @@
             </div>
             <div class="card-body">
                 <form (ngSubmit)="confirmar()">
-                    <div class="form-floating">
+                    <div class="form-floating mt-2 mb-3">
                         <input type="password" name="password" [(ngModel)]="dto.password" class="form-control" id="floatingPassword" placeholder="Password">
                         <label for="floatingPassword">Contraseña:</label>
                     </div>
-                    <div class="form-floating">
+                    <div class="form-floating mb-3">
                         <input type="password" name="confirmPassword" [(ngModel)]="dto.confirmPassword" class="form-control" id="floatingPassword" placeholder="Password">
                         <label for="floatingPassword">Confirmar Contraseña:</label>
                     </div>
-                    <div class="form-group mt-2">
-                        <button [disabled]="preloader" type="submit" class="btn btn-info d-flex">
+                    <div class="form-group mb-3">
+                        <button [disabled]="preloader" type="submit" class="btn btn-info form-control d-flex">
                             <span>Enviar</span>
                             <div class="spinner-border text-primary" role="status" *ngIf="preloader">
                                 <span class="visually-hidden">Loading...</span>
@@ -36,7 +36,7 @@
                             {{errMessage}}
                         </div>
                         <div class="alert alert-success" *ngIf="successfulMessage" role="alert">
-                            {{successfulMessage}} <a class="ms-2 link-custom" routerLink="/login">Iniciar sesión</a>
+                            {{successfulMessage}} <a class="ms-2 link-custom" routerLink="/">Iniciar sesión</a>
                         </div>
                     </div>
                 </form>                

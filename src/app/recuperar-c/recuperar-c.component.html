@@ -15,7 +15,7 @@
             </div>
             <div class="card-body">
                 <form (ngSubmit)="enviar()">
-                    <div class="form-group my-2">
+                    <div class="form-group mt-2 mb-3">
                         <span class="text-muted">Recibiras un mensaje de renovación al correo que registro al crear su usuario</span>
                     </div>
                     <div class="form-floating mb-3">
@@ -23,8 +23,8 @@
                             placeholder="name@example.com">
                         <label for="floatingInput">Correo o usuario:</label>
                     </div>    
-                    <div class="form-group">
-                        <button [disabled]="preloader" type="submit" class="btn btn-info d-flex">
+                    <div class="form-group mb-3">
+                        <button [disabled]="preloader" type="submit" class="btn btn-info form-control d-flex">
                             <span>Enviar</span>
                             <div class="spinner-border text-primary" role="status" *ngIf="preloader">
                                 <span class="visually-hidden">Loading...</span>
@@ -32,7 +32,7 @@
                         </button>
                     </div>
                 </form>                
-                <div class="mt-2">
+                <div class="mt-1 mb-2">
                     <div class="alert alert-danger" *ngIf="errMessageMail" role="alert">
                         {{errMessageMail}}
                     </div>
@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div class="card-footer">
-                <button type="button" routerLink="/login" class="btn btn-danger form-control">Cancelar</button>
+                <button type="button" routerLink="/" class="btn btn-danger form-control">Cancelar</button>
             </div>
         </div>
     </div>

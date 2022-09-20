@@ -13,10 +13,11 @@ export class Producto {
     nventas!: number;
     nestrellas!: number;
     descripcion!: string;
-    marca!: string;
+    marca!: string;    
+    ingresado!: boolean;
     tipo!: Tipo;
     productoImagenes: ProductoImagen[] = [];
     productoDatoNutricional!: ProductoDatoNutricional;
     productoVestimenta!: ProductoVestimenta;
-    productoOtros!: ProductoOtros;
+    productoOtros!: ProductoOtros;    
 }

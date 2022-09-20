@@ -50,9 +50,17 @@ export class SeleccionProductoComponent implements OnInit {
   buscar(): void {
     if (this.texto.length != 0) {
       this.bproductos.length = 0;
-      this.productoService.searchProductos(this.texto).subscribe(datos => {
-        this.bproductos = datos;
-        this.errMessageSearch = "";
+      this.productoService.searchProductos(this.texto).subscribe(datos => {        
+
+        const array_productos:Producto[] = datos.filter(pro => pro.ingresado != true);
+        if(array_productos != null && array_productos.length != 0){
+          this.bproductos = array_productos;
+          this.errMessageSearch = "";
+        }
+        else{
+          this.errMessageSearch = "Sin datos que mostrar";
+        }
+        
       }, err => {
         this.errMessageSearch = "Sin datos que mostrar";
       });
