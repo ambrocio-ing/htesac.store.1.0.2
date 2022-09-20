@@ -1,0 +1,108 @@
+<app-panel></app-panel>
+
+<div class="modal-style" *ngIf="preloader">
+    <div class="wrapper" style="margin-top: 6rem;">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="margin-top: 4rem;">
+    <div class="card mb-2">
+        <div class="card-header text-header">
+            <h5>PRODUCTOS PEDIDOS HUACHO</h5>
+        </div>
+        <div class="card-body p-1">     
+            <div class="row mt-2">
+                <div class="col">
+                    <div>                       
+                        <div style="width: 100%; overflow: auto; padding: 10px;">                       
+                            <table  class="table table-hover table-striped" 
+                                style="min-width: 500px;">
+                                <thead>  
+                                    <tr>
+                                        <th colspan="2">BUSQUEDA</th>
+                                        <th>
+                                            <input type="date" name="fechaEntrega" [(ngModel)]="fechaEntrega">
+                                        </th>
+                                        <th class="text-center">
+                                            <button (click)="buscar()" class="btn btn-success">Buscar</button>
+                                        </th>
+                                    </tr>                              
+                                    <tr bgcolor="skyblue">                                        
+                                        <th scope="col">Producto</th>
+                                        <th scope="col">Fecha Entrega</th>
+                                        <th scope="col" style="width: 50px">Cant.</th>
+                                        <th scope="col" style="width: 80px">Precio</th>                                        
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let resumen of bus_resumenes">
+                                    <tr>                                        
+                                        <td>{{resumen.nombreProducto}}</td>
+                                        <td>{{resumen.fechaHoraEntrega | date: 'dd/MM/yyyy HH:mm'}}</td>
+                                        <td>{{resumen.cantidadTotal}}</td>
+                                        <td>S/ {{resumen.precioVenta}}</td>
+                                    </tr>
+                                    <tr *ngIf="resumen.variedades.length > 0">
+                                        <td colspan="4">{{resumen.variedad}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>                        
+                        </div>                        
+                    </div>     
+                    <div class="alert alert-danger" role="alert" *ngIf="errMessageBusResumenes">
+                        {{errMessageBusResumenes}}
+                    </div>            
+                    
+                </div>
+            </div>
+            
+            <div class="row mt-2">
+                <div class="col">
+                    <div>
+                        <button (click)="descargar()" class="btn btn-info" type="button">
+                            Descargar
+                        </button>
+                        <div #asResumen style="width: 100%; overflow: auto; padding: 10px;">                       
+                            <table id="my-table"  class="table table-hover table-striped" 
+                                style="min-width: 500px;">
+                                <thead>                                
+                                    <tr bgcolor="skyblue">                                        
+                                        <th scope="col">Producto</th>
+                                        <th scope="col">Fecha Entrega</th>
+                                        <th scope="col" style="width: 50px">Cant.</th>
+                                        <th scope="col" style="width: 80px">Precio</th>                                        
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let resumen of resumenes">
+                                    <tr>                                        
+                                        <td>{{resumen.nombreProducto}}</td>
+                                        <td>{{resumen.fechaHoraEntrega | date: 'dd/MM/yyyy HH:mm'}}</td>
+                                        <td>{{resumen.cantidadTotal}}</td>
+                                        <td>S/ {{resumen.precioVenta}}</td>
+                                    </tr>
+                                    <tr *ngIf="resumen.variedades.length > 0">
+                                        <td colspan="4">{{resumen.variedad}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>                        
+                        </div>
+                        <div class="mt-2">
+                            <div class="alert alert-danger" role="alert" *ngIf="errMessageResumenes">
+                                {{errMessageResumenes}}
+                            </div>
+                            <nav class="wrapper">
+                                <ngb-pagination [(page)]="page" [pageSize]="pageSize"
+                                    [collectionSize]="resumenes.length" [maxSize]="3" [rotate]="true">
+    
+                                </ngb-pagination>
+                            </nav>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

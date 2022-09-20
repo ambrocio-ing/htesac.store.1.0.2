@@ -1,0 +1,28 @@
+.wrapper{
+    padding: .5rem;
+    display: flex;
+    justify-content: center;    
+}
+
+.modal-style{
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    padding: 5px;
+}
+
+.close-custom{
+    cursor: pointer;    
+}
+
+.close-custom i:hover {
+    color: red;
+}
+
+.close-custom i:active {
+    color: lightcoral;
+}

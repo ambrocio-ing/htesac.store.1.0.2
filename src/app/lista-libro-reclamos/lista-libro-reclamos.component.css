@@ -1,0 +1,39 @@
+.modal-custom {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.644);
+}
+
+.wrapper {
+    margin-top: 6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.click-custom i {
+    cursor: pointer;
+    color: rgb(243, 122, 122);
+}
+
+.click-custom i:active {
+    color: rgb(245, 125, 125);
+}
+
+.click-custom i:hover {
+    color: red;
+}
+
+.size-custom {
+    width: 50%;
+}
+
+@media screen and (max-width: 520px) {
+    .size-custom {
+        width: 90%;
+    }
+}

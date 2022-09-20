@@ -1,0 +1,109 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <div class="container">
+        <a class="navbar-brand">HTE ADMINISTRACIÓN</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li *ngIf="loginService.isPresentRolname('ROLE_ADMIN')" class="nav-item dropdown">
+                    <a class="nav-link active dropdown-toggle" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Usuarios
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a routerLink="/cli-lista" class="dropdown-item pestana">Cliente</a></li>
+                        <li ><a routerLink="/per" class="dropdown-item pestana">Personal</a></li>
+                        <li><a routerLink="/provee-lista" class="dropdown-item pestana">Proveedor</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>                        
+                        <li><a routerLink="/desti"  class="dropdown-item pestana">Destinatarios</a></li>
+                        <li><a routerLink="/mem/comp"  class="dropdown-item pestana">Membresias compradas</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link active dropdown-toggle" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Productos
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a routerLink="/cate" class="dropdown-item pestana">Categorias</a></li>
+                        <li><a routerLink="/tipo" class="dropdown-item pestana">Tipos</a></li>
+                        <li><a routerLink="/pro-nuevo" class="dropdown-item pestana">Nuevo Producto</a></li>
+                        <li *ngIf="loginService.isPresentRolname('ROLE_ADMIN')"><a routerLink="/pro-lista" class="dropdown-item pestana">Lista</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a routerLink="/ingre-nuevo" class="dropdown-item pestana">Nuevo ingreso</a></li>
+                        <li *ngIf="loginService.isPresentRolname('ROLE_ADMIN')"><a routerLink="/ingre-lista" class="dropdown-item pestana">Lista de ingresos</a></li>
+                    </ul>
+                </li>
+                <li *ngIf="loginService.isPresentRolname('ROLE_ADMIN')" class="nav-item dropdown">
+                    <a class="nav-link active dropdown-toggle" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Ventas
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a routerLink="/huacho/venta-pedido" class="dropdown-item pestana">Pedidos Huacho</a></li> 
+                        <li><a routerLink="/huacho/venta-entregado" class="dropdown-item pestana">Entregados Huacho</a></li>
+                        <li><a routerLink="/huacho/validar" class="dropdown-item pestana">Validar comprobante Huacho</a></li>
+                        <li><a routerLink="/huacho/resumen" class="dropdown-item pestana">Productos por entregar Huacho</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a routerLink="/barranca/venta-pedido" class="dropdown-item pestana">Pedidos Barranca</a></li>                        
+                        <li><a routerLink="/barranca/venta-entregado" class="dropdown-item pestana">Entregados Barranca</a></li>     
+                        <li><a routerLink="/barranca/validar" class="dropdown-item pestana">Validar comprobante Barranca</a></li>
+                        <li><a routerLink="/barranca/resumen" class="dropdown-item pestana">Productos por entregar Barranca</a></li>                                           
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>                      
+                        <li><a routerLink="/venta-anulado" class="dropdown-item pestana">Anulados</a></li>
+                        <li><a routerLink="/venta-busqueda" class="dropdown-item pestana">Busquedas</a></li>
+                    </ul>
+                </li>                
+                <li *ngIf="loginService.isPresentRolname('ROLE_ADMIN')" class="nav-item dropdown">
+                    <a class="nav-link active dropdown-toggle" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Compras
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a routerLink="/oferta-cli" class="dropdown-item pestana">Oferta de cliente</a></li>
+                        <li><a routerLink="/oferta-pro" class="dropdown-item pestana">Oferta de proveedor</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a routerLink="/suje"class="dropdown-item pestana">Sugerencias</a></li>
+                    </ul>
+                </li>               
+                <li *ngIf="loginService.isPresentRolname('ROLE_ADMIN')" class="nav-item dropdown">
+                    <a class="nav-link active dropdown-toggle" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Otros
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a routerLink="/publicidad" class="dropdown-item pestana">Publicidad</a></li>
+                        <li><a routerLink="/membresia" class="dropdown-item pestana">Membresia</a></li>
+                        <li><a routerLink="/delivery" class="dropdown-item pestana">Delivery</a></li>
+                        <li><a routerLink="/hora-en" class="dropdown-item pestana">Hora de entrega / Variedades</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a routerLink="/reclamos" class="dropdown-item pestana">Reclamos</a></li>
+                        <li><a routerLink="/libro-re" class="dropdown-item pestana">Libro de reclamo</a></li>
+                    </ul>
+                </li>  
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page">{{loginService.usuario.nombre}}</a>
+                </li>
+                <li class="nav-item">
+                    <a (click)="logout()" class="btn btn-outline-danger" aria-current="page">Cerrar Sesión</a>
+                </li>                
+            </ul>
+        </div>
+    </div>
+</nav>

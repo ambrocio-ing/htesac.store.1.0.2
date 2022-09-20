@@ -1,0 +1,48 @@
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-sm navbar-dark fixed-top" style="background: rgb(1, 196, 218);">
+        <div class="container-fluid">
+            <div class="d-flex">
+                <a class="navbar-brand" href="javascript:void(0)">
+                    <span>HTE ADMINISTRACIÓN</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div class="position-absolute top-50 start-50 translate-middle">
+        <div class="card text-center" style="width:17rem;">
+            <div class="card-header">
+                Iniciar sesión
+            </div>            
+            <div class="card-body">
+                <form (ngSubmit)="iniciarSesion()" (keydown.enter)="iniciar_Sesion($event)">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" name="usernameOrEmail"
+                            [(ngModel)]="usuarioLogin.usernameOrEmail" placeholder="name@example.com">
+                        <label for="floatingInput">Usuario ó Correo</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="password" name="password" [(ngModel)]="usuarioLogin.password" class="form-control"
+                            id="floatingPassword" placeholder="Password">
+                        <label for="floatingPassword">Contraseña</label>
+                    </div>
+                    <div class="form-group mt-2">
+                        <button type="submit" [disabled]="preloaderLogin" class="btn btn-info form-control d-flex justify-content-center">
+                            <span class="me-2">Ingresar</span>
+                            <div class="spinner-border text-primary" role="status" *ngIf="preloaderLogin">
+                                <span class="visually-hidden">...</span>
+                            </div>
+                        </button>
+                    </div>                    
+                </form>  
+            </div>           
+            <div class="card-footer">
+                <a routerLink="/new-pass" class="link-info">Olvide mi contraseña</a>
+            </div>
+            <div class="card-footer" *ngIf="errMessageLogin">
+                <div class="alert alert-danger" role="alert">
+                    {{errMessageLogin}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

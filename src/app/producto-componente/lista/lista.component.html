@@ -1,0 +1,442 @@
+<app-panel></app-panel>
+
+<app-ver-imagenes *ngIf="pimagenes.length > 0" [imagenes]="pimagenes" [visibleImg]="visibleImg"
+    (cerrarImg)="visibleImg = $event">
+
+</app-ver-imagenes>
+
+<div class="modal-style" *ngIf="preloader">
+    <div class="wrapper2">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+</div>
+<div class="container" style="margin-top: 4rem;">
+    <div class="card">
+        <div class="card-header">
+            <h5>LISTA DE PRODUCTOS</h5>
+        </div>
+        <div class="card-body p-1">
+            <!--BUSQUEDA POR CODIGO O NOMBRE-->
+            <div class="row">
+                <div class="col">
+                    <div style="width: 100%; overflow: auto;">
+                        <table class="table table-striped" style="width: 100%; min-width: 580px;">
+                            <thead>
+                                <tr class="text-center">
+                                    <th colspan="3">Busque por nombre o código</th>
+                                    <th>
+                                        <input name="texto" [(ngModel)]="texto" type="text" class="form-control">
+                                    </th>
+                                    <th>
+                                        <button (click)="buscar()" class="btn btn-success">Buscar</button>
+                                    </th>
+                                </tr>
+                                <tr class="text-center">
+                                    <th colspan="4"></th>
+                                    <th>
+                                        <button (click)="limpiar()" class="btn btn-danger">Limpiar</button>
+                                    </th>
+                                </tr>
+                                <tr bgcolor="skyblue" class="text-center">
+                                    <th scope="col">Imagenes</th>
+                                    <th scope="col">Datos</th>
+                                    <th scope="col">Categoria/Tipo</th>
+                                    <th scope="col">Detalle</th>
+                                    <th scope="col">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let producto of bproductos">
+                                    <td>
+                                        <img style="width: 50px; height: 50px;"
+                                            src="{{url_backend}}/{{producto.productoImagenes[0].imagen}}" alt="imagen">
+                                        <br>
+                                        <a (click)="verImagenes(producto)" *ngIf="producto.productoImagenes.length > 1"
+                                            style="color: blue; cursor: pointer; margin-top: 3px;">Ver mas imagenes</a>
+
+                                    </td>
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <td><span style="color: blue;">Código: </span>{{producto.codigo}}</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td><span style="color: blue;">Nombre: </span>{{producto.nombre}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span style="color: blue;">Puntos: </span>{{producto.puntos}}
+                                                    <span style="color: blue;"># Ventas: </span>{{producto.nventas}}
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span style="color: blue;"># Estrellas:
+                                                    </span>{{producto.nestrellas}}
+                                                    <span style="color: blue;"># Marca: </span>{{producto.marca}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span
+                                                        style="color: blue;">Descripción:</span>{{producto.descripcion}}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <span
+                                                        style="color: blue;">Categoría:</span>{{producto.tipo.categoria.nombre}}
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span
+                                                        style="color: blue;">Cat/Des:</span>{{producto.tipo.categoria.descripcion}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span style="color: blue;">Tipo: </span>{{producto.tipo.nombre}}
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span
+                                                        style="color: blue;">Tip/Des:</span>{{producto.tipo.descripcion}}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table *ngIf="producto?.productoDatoNutricional">
+                                            <tr>
+                                                <td>
+                                                    <span style="color: blue;">Calorias:</span>
+                                                    {{producto.productoDatoNutricional.calorias}}
+                                                </td>
+                                                <td>
+                                                    <span style="color: blue;">Grasa:</span>
+                                                    {{producto.productoDatoNutricional.grasa}}
+                                                </td>
+                                                <td>
+                                                    <span style="color: blue;">Colesterol:</span>
+                                                    {{producto.productoDatoNutricional.colesterol}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span style="color: blue;">Sodio:</span>
+                                                    {{producto.productoDatoNutricional.sodio}}
+                                                </td>
+                                                <td>
+                                                    <span style="color: blue;">Carbohidrato:</span>
+                                                    {{producto.productoDatoNutricional.carbohidrato}}
+                                                </td>
+                                                <td>
+                                                    <span style="color: blue;">Proteina:</span>
+                                                    {{producto.productoDatoNutricional.proteina}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span style="color: blue;">Vitamina:</span>
+                                                    {{producto.productoDatoNutricional.vitamina}}
+                                                </td>
+                                                <td>
+                                                    <span style="color: blue;">Calcio:</span>
+                                                    {{producto.productoDatoNutricional.calcio}}
+                                                </td>
+                                                <td>
+                                                    <span style="color: blue;">Hierro:</span>
+                                                    {{producto.productoDatoNutricional.hierro}}
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                        <table *ngIf="producto?.productoVestimenta">
+                                            <tr *ngIf="producto.productoVestimenta?.modelo">
+                                                <td>
+                                                    <span style="color: blue;">Modelo:</span>
+                                                    {{producto.productoVestimenta.modelo}}
+                                                </td>
+                                            </tr>
+                                            <tr *ngIf="producto.productoVestimenta?.material">
+                                                <td>
+                                                    <span style="color: blue;">Material:</span>
+                                                    {{producto.productoVestimenta.material}}
+                                                </td>
+                                            </tr>                                           
+                                        </table>
+
+                                        <table *ngIf="producto.productoOtros?.idpotros">
+                                            <tr>
+                                                <td>
+                                                    <span style="color: blue;">Modelo:</span>
+                                                    {{producto.productoOtros.modelo}}
+                                                </td>
+                                                <td>
+                                                    <span style="color: blue;">Color:</span>
+                                                    {{producto.productoOtros.color}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span style="color: blue;">Material:</span>
+                                                    {{producto.productoOtros.material}}
+                                                    <span style="color: blue;">Peso:</span>
+                                                    {{producto.productoOtros.peso}}
+                                                </td>
+                                                <td>
+                                                    <span style="color: blue;">Medida:</span>
+                                                    {{producto.productoOtros.medida}}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <a [routerLink]="['/pro-edit',producto.idproducto]">
+                                                        <img style="width: 30px; height: 30px; cursor: pointer;margin-left: 10px;"
+                                                            src="../../../assets/img/editar.jpeg" alt="editar.jpeg">
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <a (click)="eliminar(producto)">
+                                                        <img style="width: 30px; height: 30px; cursor: pointer; margin-left: 10px;"
+                                                            src="../../../assets/img/eliminar.png" alt="eliminar.png">
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="alert alert-danger" role="alert" *ngIf="errMessageSearch">
+                            <span>{{errMessageSearch}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--LISTA GENERAL-->
+            <div class="row">
+                <div class="col">
+                    <div style="width: 100%; overflow: auto;">
+                        <table class="table table-striped" style="width: 100%; min-width: 580px;">
+                            <thead>
+                                <tr class="text-center">
+                                    <th colspan="4"></th>
+                                    <th>
+                                        <button routerLink="/pro-nuevo" class="btn btn-outline-primary">Nuevo</button>
+                                    </th>
+                                </tr>
+                                <tr bgcolor="skyblue" class="text-center">
+                                    <th scope="col">Imagenes</th>
+                                    <th scope="col">Datos</th>
+                                    <th scope="col">Categoria/Tipo</th>
+                                    <th scope="col">Detalle</th>
+                                    <th scope="col">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let producto of productos">
+                                    <td>
+                                        <img style="width: 50px; height: 50px;"
+                                            src="{{url_backend}}/{{producto.productoImagenes[0].imagen}}" alt="imagen">
+                                        <br>
+                                        <a (click)="verImagenes(producto)" *ngIf="producto.productoImagenes.length > 1"
+                                            style="color: blue; cursor: pointer; margin-top: 3px;">Ver mas imagenes</a>
+                                    </td>
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <td><span style="color: blue;">Código: </span>{{producto.codigo}}</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td><span style="color: blue;">Nombre: </span>{{producto.nombre}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span style="color: blue;">Puntos: </span>{{producto.puntos}}
+                                                    <span style="color: blue;"># Ventas: </span>{{producto.nventas}}
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span style="color: blue;"># Estrellas:
+                                                    </span>{{producto.nestrellas}}
+                                                    <span style="color: blue;"># Marca: </span>{{producto.marca}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><span style="color: blue;">Descripción:
+                                                    </span>{{producto.descripcion}}</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <span
+                                                        style="color: blue;">Categoría:</span>{{producto.tipo.categoria.nombre}}
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span
+                                                        style="color: blue;">Cat/Des:</span>{{producto.tipo.categoria.descripcion}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span style="color: blue;">Tipo: </span>{{producto.tipo.nombre}}
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span
+                                                        style="color: blue;">Tip/Des:</span>{{producto.tipo.descripcion}}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table *ngIf="producto?.productoDatoNutricional">
+                                            <tr>
+                                                <td>
+                                                    <span style="color: blue;">Calorias:</span>
+                                                    {{producto.productoDatoNutricional.calorias}}
+                                                </td>
+                                                <td>
+                                                    <span style="color: blue;">Grasa:</span>
+                                                    {{producto.productoDatoNutricional.grasa}}
+                                                </td>
+                                                <td>
+                                                    <span style="color: blue;">Colesterol:</span>
+                                                    {{producto.productoDatoNutricional.colesterol}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span style="color: blue;">Sodio:</span>
+                                                    {{producto.productoDatoNutricional.sodio}}
+                                                </td>
+                                                <td>
+                                                    <span style="color: blue;">Carbohidrato:</span>
+                                                    {{producto.productoDatoNutricional.carbohidrato}}
+                                                </td>
+                                                <td>
+                                                    <span style="color: blue;">Proteina:</span>
+                                                    {{producto.productoDatoNutricional.proteina}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span style="color: blue;">Vitamina:</span>
+                                                    {{producto.productoDatoNutricional.vitamina}}
+                                                </td>
+                                                <td>
+                                                    <span style="color: blue;">Calcio:</span>
+                                                    {{producto.productoDatoNutricional.calcio}}
+                                                </td>
+                                                <td>
+                                                    <span style="color: blue;">Hierro:</span>
+                                                    {{producto.productoDatoNutricional.hierro}}
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                        <table *ngIf="producto?.productoVestimenta">
+                                            <tr *ngIf="producto.productoVestimenta?.modelo">
+                                                <td>
+                                                    <span style="color: blue;">Modelo:</span>
+                                                    {{producto.productoVestimenta.modelo}}
+                                                </td>
+                                            </tr>
+                                            <tr *ngIf="producto.productoVestimenta?.material">
+                                                <td>
+                                                    <span style="color: blue;">Material:</span>
+                                                    {{producto.productoVestimenta.material}}
+                                                </td>
+                                            </tr>                                            
+                                        </table>
+
+                                        <table *ngIf="producto.productoOtros?.idpotros">
+                                            <tr>
+                                                <td>
+                                                    <span style="color: blue;">Modelo:</span>
+                                                    {{producto.productoOtros.modelo}}
+                                                </td>
+                                                <td>
+                                                    <span style="color: blue;">Color:</span>
+                                                    {{producto.productoOtros.color}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span style="color: blue;">Material:</span>
+                                                    {{producto.productoOtros.material}}
+                                                    <span style="color: blue;">Peso:</span>
+                                                    {{producto.productoOtros.peso}}
+                                                </td>
+                                                <td>
+                                                    <span style="color: blue;">Medida:</span>
+                                                    {{producto.productoOtros.medida}}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <a [routerLink]="['/pro-edit',producto.idproducto]">
+                                                        <img style="width: 30px; height: 30px; cursor: pointer;margin-left: 10px;"
+                                                            src="../../../assets/img/editar.jpeg" alt="editar.jpeg">
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <a (click)="eliminar(producto)">
+                                                        <img style="width: 30px; height: 30px; cursor: pointer; margin-left: 10px;"
+                                                            src="../../../assets/img/eliminar.png" alt="eliminar.png">
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="alert alert-danger" role="alert" *ngIf="errMessageList">
+                            <span>{{errMessageList}}</span>
+                        </div>
+                        <div class="wrapper" *ngIf="productos.length > 0">
+                            <app-paginador-lista [paginador]="paginator" [tipo]="tipo"></app-paginador-lista>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
