@@ -10,6 +10,7 @@ export class DetalleMembresia {
     fechaFin!: string;
     estado!:string;
     imagen!:string;
+    montoTotal!:number;
     cliente!: Cliente;
     membresia!: Membresia;
     detallePago!:DetallePago;

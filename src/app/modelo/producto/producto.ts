@@ -14,7 +14,8 @@ export class Producto {
     nestrellas!: number;
     descripcion!: string;
     marca!: string;    
-    ingresado!: boolean;
+    ingresadoHuacho!: boolean;
+    ingresadoBarranca!:boolean;
     tipo!: Tipo;
     productoImagenes: ProductoImagen[] = [];
     productoDatoNutricional!: ProductoDatoNutricional;

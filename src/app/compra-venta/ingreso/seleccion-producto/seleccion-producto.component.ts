@@ -52,7 +52,7 @@ export class SeleccionProductoComponent implements OnInit {
       this.bproductos.length = 0;
       this.productoService.searchProductos(this.texto).subscribe(datos => {        
 
-        const array_productos:Producto[] = datos.filter(pro => pro.ingresado != true);
+        const array_productos:Producto[] = datos.filter(pro => pro.ingresadoBarranca != true || pro.ingresadoHuacho != true);
         if(array_productos != null && array_productos.length != 0){
           this.bproductos = array_productos;
           this.errMessageSearch = "";
