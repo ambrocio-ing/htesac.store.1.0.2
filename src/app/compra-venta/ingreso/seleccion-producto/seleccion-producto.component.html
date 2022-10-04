@@ -34,6 +34,7 @@
                                         <th scope="col">Imagenes</th>
                                         <th scope="col">Datos</th>
                                         <th scope="col">Detalle</th>
+                                        <th scope="col">Estados</th>
                                         <th scope="col">Acción</th>
                                     </tr>
                                 </thead>
@@ -46,7 +47,7 @@
                                                         <img style="width: 50px; height: 50px;"
                                                             src="{{url_backend}}/{{producto.productoImagenes[0].imagen}}"
                                                             alt="no image">
-                                                    </td>                                                    
+                                                    </td>
                                                 </tr>
                                             </table>
                                         </td>
@@ -62,6 +63,13 @@
                                         </td>
                                         <td>
                                             <span style="color: blue;">Descripción: </span>{{producto.descripcion}}
+                                        </td>
+                                        <td>
+                                            <span style="color: blue;">Ingreso
+                                                Barranca:</span>{{producto.ingresadoBarranca}}
+                                            <br>
+                                            <span style="color: blue;">Ingreso
+                                                Huacho:</span>{{producto.ingresadoHuacho}}
                                         </td>
                                         <td>
                                             <a (click)="seleccionar(producto)">
@@ -87,6 +95,7 @@
                                         <th scope="col">Imagenes</th>
                                         <th scope="col">Datos</th>
                                         <th scope="col">Detalle</th>
+                                        <th scope="col">Estados</th>
                                         <th scope="col">Acción</th>
                                     </tr>
                                 </thead>
@@ -99,7 +108,7 @@
                                                         <img style="width: 50px; height: 50px;"
                                                             src="{{url_backend}}/{{producto.productoImagenes[0].imagen}}"
                                                             alt="no image">
-                                                    </td>                                                    
+                                                    </td>
                                                 </tr>
                                             </table>
                                         </td>
@@ -114,6 +123,13 @@
                                             </table>
                                         </td>
                                         <td><span style="color: blue;">Descripción: </span>{{producto.descripcion}}</td>
+                                        <td>
+                                            <span style="color: blue;">Ingreso
+                                                Barranca:</span>{{producto.ingresadoBarranca}}
+                                            <br>
+                                            <span style="color: blue;">Ingreso
+                                                Huacho:</span>{{producto.ingresadoHuacho}}
+                                        </td>
                                         <td>
                                             <a (click)="seleccionar(producto)">
                                                 <img style="width: 30px; height: 30px; cursor: pointer; margin-left: 10px;"
